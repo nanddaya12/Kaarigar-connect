@@ -2,19 +2,15 @@ import React, { useState } from 'react';
 import { 
   MapPin, 
   Search, 
-  ShieldCheck, 
   ChevronDown, 
   Bell, 
-  Phone, 
   Wrench, 
   Menu, 
   X, 
   Sparkles,
   Map,
   Bike,
-  Shield,
-  UserCheck,
-  CheckCircle2,
+  ShieldCheck,
   Power,
   Users,
   FileText,
@@ -23,16 +19,22 @@ import {
   AlertTriangle,
   HelpCircle,
   TrendingUp,
-  Inbox
+  Inbox,
+  User,
+  Bookmark,
+  Settings,
+  LogOut,
+  Receipt,
+  MessageSquare
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { UserRole } from '../../types/database.types';
 
 interface NavbarProps {
   activeView: string;
   onNavigate: (view: string) => void;
   onOpenSearch: () => void;
   onOpenChat: () => void;
+  onOpenProviderOnboarding: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -40,8 +42,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   onOpenSearch,
   onOpenChat,
+  onOpenProviderOnboarding,
 }) => {
-  const { role, setRole, locality, setLocality, isAvailable, toggleAvailability } = useAuth();
+  const { role, locality, setLocality, isAvailable, toggleAvailability, user } = useAuth();
   const [showLocalityMenu, setShowLocalityMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'home', label: 'Home', icon: Sparkles },
     { id: 'explore', label: 'Explore', icon: Map },
     { id: 'how_it_works', label: 'How It Works', icon: HelpCircle },
-    { id: 'provider', label: 'Become a Provider', icon: Wrench },
+    { id: 'become_provider', label: 'Become a Provider', icon: Wrench },
   ];
 
   const providerNavItems = [
@@ -69,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'provider_jobs', label: 'Jobs', icon: Bike },
     { id: 'chat_view', label: 'Messages', icon: Bell },
     { id: 'provider_earnings', label: 'Earnings', icon: TrendingUp },
-    { id: 'profile', label: 'Profile', icon: UserCheck },
+    { id: 'profile', label: 'Profile', icon: User },
   ];
 
   const adminNavItems = [
@@ -92,6 +95,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   const handleNavClick = (viewId: string) => {
     if (viewId === 'chat_view') {
       onOpenChat();
+    } else if (viewId === 'become_provider') {
+      onOpenProviderOnboarding();
     } else {
       onNavigate(viewId);
     }
@@ -123,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <div className="h-5 w-px bg-emerald-800 hidden md:block"></div>
 
-          {/* Location Dropdown Picker (For Customers/Providers) */}
+          {/* Location Dropdown Picker */}
           {role !== 'admin' && (
             <div className="relative hidden sm:block">
               <button
@@ -131,14 +136,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-900/60 hover:bg-emerald-900 border border-emerald-700/80 text-white rounded-full text-xs font-semibold transition-colors shadow-xs"
               >
                 <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span className="truncate max-w-[130px] font-bold">{locality}</span>
+                <span className="truncate max-w-[130px] font-bold">📍 {locality}</span>
                 <ChevronDown className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
               </button>
 
               {showLocalityMenu && (
                 <div className="absolute left-0 top-full mt-2 w-64 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
                   <p className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider px-2 py-1">
-                    Hyderabad Coverage Corridors
+                    Hyderabad Sectors & Corridors
                   </p>
                   <div className="space-y-0.5 mt-1">
                     {coverageCorridors.map((c) => (
@@ -188,7 +193,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* RIGHT CONTROLS */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Provider Availability Toggle Button */}
+          {/* Provider Availability Toggle Button (Only when in Provider experience) */}
           {role === 'provider' && (
             <button
               onClick={toggleAvailability}
@@ -210,19 +215,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             title="Search Services (⌘K)"
           >
             <Search className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden xl:inline text-slate-200">Search plumber, electrician...</span>
+            <span className="hidden xl:inline text-slate-200">Search plumbers, electricians...</span>
             <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] bg-slate-900 text-emerald-300 rounded border border-emerald-700 font-mono">⌘K</kbd>
           </button>
-
-          {/* Hotline Helpline */}
-          <a
-            href="tel:0222784910"
-            className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-extrabold transition-colors shadow-md"
-            title="Guild Dispatcher Helpline"
-          >
-            <Phone className="w-3.5 h-3.5 text-slate-950" />
-            <span>022-2784910</span>
-          </a>
 
           {/* Language Switcher */}
           <button
@@ -243,43 +238,105 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-[#004331]"></span>
           </button>
 
-          {/* User Persona Profile Dropdown */}
+          {/* CLEAN CUSTOMER PROFILE DROPDOWN MENU (NO ROLE SWITCHER!) */}
           <div className="relative">
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               className="relative block group focus:outline-none"
-              title="Persona View"
+              title="User Account Menu"
             >
-              <div className="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center ring-2 ring-amber-300 group-hover:scale-105 transition-all">
-                {role === 'customer' ? '🧑' : role === 'provider' ? '🛠️' : '🛡️'}
-              </div>
+              <img
+                src={user.avatar}
+                alt={user.name}
+                className="w-8 h-8 rounded-full object-cover ring-2 ring-amber-400 group-hover:scale-105 transition-transform"
+              />
             </button>
 
             {showProfileMenu && (
-              <div className="absolute right-0 top-full mt-2 w-56 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
-                <p className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider px-2 py-1">
-                  Switch Active Role Experience
-                </p>
-                {(['customer', 'provider', 'admin'] as UserRole[]).map((r) => (
+              <div className="absolute right-0 top-full mt-2 w-64 bg-slate-900 text-white rounded-2xl shadow-2xl p-3 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
+                {/* User Card */}
+                <div className="p-2 border-b border-slate-800 pb-3 mb-2 flex items-center gap-3">
+                  <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full object-cover border border-amber-400" />
+                  <div className="overflow-hidden">
+                    <p className="font-extrabold text-sm text-white truncate">{user.name.split(' ')[0]} Nand</p>
+                    <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-900 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+                      {role.toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Account Navigation Links */}
+                <div className="space-y-1">
                   <button
-                    key={r}
                     onClick={() => {
-                      setRole(r);
+                      onNavigate('profile');
                       setShowProfileMenu(false);
-                      if (r === 'provider') handleNavClick('provider');
-                      else if (r === 'admin') handleNavClick('admin');
-                      else handleNavClick('home');
                     }}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium capitalize flex items-center justify-between ${
-                      role === r
-                        ? 'bg-emerald-800 text-white font-bold'
-                        : 'text-slate-300 hover:bg-slate-800'
-                    }`}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
                   >
-                    <span>{r === 'customer' ? '🧑 Customer' : r === 'provider' ? '🛠️ Provider' : '🛡️ Admin Console'}</span>
-                    {role === r && <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />}
+                    <User className="w-4 h-4 text-amber-400" /> My Profile
                   </button>
-                ))}
+
+                  <button
+                    onClick={() => {
+                      onNavigate('tracking');
+                      setShowProfileMenu(false);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
+                  >
+                    <Receipt className="w-4 h-4 text-emerald-400" /> My Requests
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      onOpenChat();
+                      setShowProfileMenu(false);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
+                  >
+                    <MessageSquare className="w-4 h-4 text-sky-400" /> Messages
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      onNavigate('explore');
+                      setShowProfileMenu(false);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
+                  >
+                    <Bookmark className="w-4 h-4 text-amber-400" /> Saved Providers
+                  </button>
+
+                  <button
+                    onClick={() => setShowProfileMenu(false)}
+                    className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
+                  >
+                    <Settings className="w-4 h-4 text-slate-400" /> Settings
+                  </button>
+                </div>
+
+                <div className="my-2 border-t border-slate-800" />
+
+                {/* Become a Provider Pathway */}
+                {role === 'customer' && (
+                  <button
+                    onClick={() => {
+                      onOpenProviderOnboarding();
+                      setShowProfileMenu(false);
+                    }}
+                    className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center gap-2.5 transition-colors shadow-md mb-2"
+                  >
+                    <Wrench className="w-4 h-4 text-slate-950" /> Become a Provider
+                  </button>
+                )}
+
+                {/* Sign Out */}
+                <button
+                  onClick={() => setShowProfileMenu(false)}
+                  className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-950/40 flex items-center gap-2.5 transition-colors"
+                >
+                  <LogOut className="w-4 h-4 text-red-400" /> Sign Out
+                </button>
               </div>
             )}
           </div>

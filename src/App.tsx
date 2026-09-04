@@ -9,16 +9,17 @@ import { SectorMap } from './components/marketplace/SectorMap';
 import { AiDiagnosticWidget } from './components/ai/AiDiagnosticWidget';
 import { OrderTracker } from './components/dashboard/OrderTracker';
 import { ProviderDashboardPage } from './pages/provider/ProviderDashboardPage';
-import { BookingModal } from './components/marketplace/BookingModal';
-import { ChatDrawer } from './features/chat/ChatDrawer';
 import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
+import { BookingModal } from './components/marketplace/BookingModal';
+import { ProviderOnboardingModal } from './components/marketplace/ProviderOnboardingModal';
+import { ChatDrawer } from './features/chat/ChatDrawer';
 import { mockServiceRequests, bookingService } from './services/bookingService';
 import { marketplaceService } from './services/marketplaceService';
 import { ProviderProfile, ServiceRequest } from './types/database.types';
-import { Search, Sparkles, MapPin, X, Wrench, ShieldCheck } from 'lucide-react';
+import { Search, X, ShieldCheck } from 'lucide-react';
 
 const MainAppContent: React.FC = () => {
-  const { role } = useAuth();
+  const { role, setRole } = useAuth();
   const [activeView, setActiveView] = useState<string>('home');
   const [selectedProviderId, setSelectedProviderId] = useState<string>('kaarigar-1');
   const [bookingProvider, setBookingProvider] = useState<ProviderProfile | null>(null);
@@ -26,6 +27,7 @@ const MainAppContent: React.FC = () => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showChatDrawer, setShowChatDrawer] = useState(false);
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [allProviders, setAllProviders] = useState<ProviderProfile[]>([]);
 
   useEffect(() => {
@@ -62,6 +64,12 @@ const MainAppContent: React.FC = () => {
     setActiveView('tracking');
   };
 
+  const handleOnboardingComplete = () => {
+    setRole('provider');
+    setShowOnboardingModal(false);
+    setActiveView('provider');
+  };
+
   const filteredProviders = allProviders.filter(
     (p) =>
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -76,6 +84,7 @@ const MainAppContent: React.FC = () => {
         onNavigate={setActiveView}
         onOpenSearch={() => setShowSearchModal(true)}
         onOpenChat={() => setShowChatDrawer(true)}
+        onOpenProviderOnboarding={() => setShowOnboardingModal(true)}
       />
 
       <main className="flex-grow pt-16 sm:pt-20 pb-20 lg:pb-12">
@@ -92,6 +101,7 @@ const MainAppContent: React.FC = () => {
             <SectorMap
               providers={allProviders}
               onSelectProvider={handleSelectKaarigar}
+              onBookNow={handleBookNow}
             />
           </div>
         )}
@@ -214,6 +224,13 @@ const MainAppContent: React.FC = () => {
           onSuccess={handleBookingSuccess}
         />
       )}
+
+      {/* Provider Onboarding Modal */}
+      <ProviderOnboardingModal
+        isOpen={showOnboardingModal}
+        onClose={() => setShowOnboardingModal(false)}
+        onComplete={handleOnboardingComplete}
+      />
 
       {/* Realtime Messaging Drawer */}
       <ChatDrawer
