@@ -31,13 +31,17 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-2.5">
+    <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none snap-x touch-pan-x">
       <button
         onClick={() => onSelectCategory('all')}
-        className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${selectedCategory === 'all' ? 'bg-primary text-on-primary shadow-md' : 'bg-white border border-outline-variant/40 text-on-surface hover:bg-surface-container-low'}`}
+        className={`px-4 py-2.5 rounded-2xl text-xs font-extrabold flex items-center gap-2 shrink-0 snap-start transition-all shadow-xs ${
+          selectedCategory === 'all'
+            ? 'bg-emerald-800 text-white shadow-md scale-102 ring-2 ring-emerald-700/30'
+            : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+        }`}
       >
         <Grid className="w-4 h-4" />
-        <span>All Services</span>
+        <span className="whitespace-nowrap">All Services</span>
       </button>
 
       {categories.map(cat => {
@@ -47,10 +51,14 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
           <button
             key={cat.id}
             onClick={() => onSelectCategory(cat.slug)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${isSelected ? 'bg-primary text-on-primary shadow-md' : 'bg-white border border-outline-variant/40 text-on-surface hover:bg-surface-container-low'}`}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-extrabold flex items-center gap-2 shrink-0 snap-start transition-all shadow-xs ${
+              isSelected
+                ? 'bg-emerald-800 text-white shadow-md scale-102 ring-2 ring-emerald-700/30'
+                : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+            }`}
           >
             <IconComponent className="w-4 h-4" />
-            <span>{cat.name}</span>
+            <span className="whitespace-nowrap">{cat.name}</span>
           </button>
         );
       })}

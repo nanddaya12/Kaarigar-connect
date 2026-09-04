@@ -55,7 +55,7 @@ const MainAppContent: React.FC = () => {
         onOpenChat={() => setShowChatDrawer(true)}
       />
 
-      <main className="flex-grow pt-24 pb-16">
+      <main className="flex-grow pt-18 sm:pt-24 pb-20 lg:pb-12">
         {activeView === 'home' && (
           <HomePage
             onSelectKaarigar={handleSelectKaarigar}
