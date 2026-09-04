@@ -12,7 +12,8 @@ import {
   ArrowRight, 
   ArrowLeft,
   UploadCloud,
-  Check
+  Check,
+  AlertCircle
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 
@@ -41,16 +42,76 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
     guildCertUploaded: false,
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   if (!isOpen) return null;
 
   const totalSteps = 7;
 
   const handleChange = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear error for field when user types
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: '' }));
+    }
+  };
+
+  // Validation function per step
+  const validateStep = (currentStep: number): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    if (currentStep === 1) {
+      // Name validation: min 3 chars, letters/spaces only
+      const nameTrimmed = formData.fullName.trim();
+      if (!nameTrimmed || nameTrimmed.length < 3 || /^\d+$/.test(nameTrimmed)) {
+        newErrors.fullName = 'Full legal name must be at least 3 characters (e.g. Dayanand Sharma / Imran Ali)';
+      }
+
+      // Phone validation: Pakistani 11-digit phone (03XX-XXXXXXX or 03XXXXXXXXX)
+      const cleanPhone = formData.phone.replace(/[- ]/g, '');
+      const phoneRegex = /^((\+92)|(0092)|0)?3[0-9]{9}$/;
+      if (!cleanPhone || !phoneRegex.test(cleanPhone)) {
+        newErrors.phone = 'Valid 11-digit Pakistani mobile number required (e.g. 0300-1234567)';
+      }
+
+      // CNIC validation: 13 digits (41304-XXXXXXX-X or 41304XXXXXXX1)
+      const cleanCnic = formData.cnic.replace(/[- ]/g, '');
+      const cnicRegex = /^[0-9]{13}$/;
+      if (!cleanCnic || !cnicRegex.test(cleanCnic)) {
+        newErrors.cnic = 'Valid 13-digit CNIC number required (e.g. 41304-1234567-1)';
+      }
+    }
+
+    if (currentStep === 2) {
+      if (!formData.profession) {
+        newErrors.profession = 'Please select your primary profession';
+      }
+    }
+
+    if (currentStep === 3) {
+      const priceNum = parseFloat(formData.startingPrice);
+      if (isNaN(priceNum) || priceNum < 100) {
+        newErrors.startingPrice = 'Starting inspection fee must be at least Rs. 100';
+      }
+      if (!formData.serviceDescription || formData.serviceDescription.trim().length < 10) {
+        newErrors.serviceDescription = 'Specialty description must be at least 10 characters long';
+      }
+    }
+
+    if (currentStep === 6) {
+      if (!formData.cnicUploaded) {
+        newErrors.cnicUploaded = 'Please confirm CNIC document upload for NADRA/Guild verification';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {
-    if (step < totalSteps) setStep(step + 1);
+    if (validateStep(step)) {
+      if (step < totalSteps) setStep(step + 1);
+    }
   };
 
   const handlePrev = () => {
@@ -59,7 +120,9 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onComplete();
+    if (validateStep(step)) {
+      onComplete();
+    }
   };
 
   const trades = [
@@ -155,40 +218,61 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
 
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Full Legal Name (as on CNIC)</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Full Legal Name (as on CNIC) *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Dayanand Sharma / Imran Ali"
                     value={formData.fullName}
                     onChange={(e) => handleChange('fullName', e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#004331]"
+                    className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none ${
+                      errors.fullName ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:ring-2 focus:ring-[#004331]'
+                    }`}
                   />
+                  {errors.fullName && (
+                    <p className="text-xs font-bold text-red-600 mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.fullName}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">Mobile Phone Number</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Mobile Phone Number *</label>
                     <input
                       type="tel"
                       required
                       placeholder="0300-1234567"
                       value={formData.phone}
                       onChange={(e) => handleChange('phone', e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#004331]"
+                      className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none ${
+                        errors.phone ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:ring-2 focus:ring-[#004331]'
+                      }`}
                     />
+                    {errors.phone && (
+                      <p className="text-xs font-bold text-red-600 mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5" /> {errors.phone}
+                      </p>
+                    )}
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">CNIC Number</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">CNIC Number *</label>
                     <input
                       type="text"
                       required
                       placeholder="41304-XXXXXXX-X"
                       value={formData.cnic}
                       onChange={(e) => handleChange('cnic', e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#004331]"
+                      className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none ${
+                        errors.cnic ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:ring-2 focus:ring-[#004331]'
+                      }`}
                     />
+                    {errors.cnic && (
+                      <p className="text-xs font-bold text-red-600 mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5" /> {errors.cnic}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -233,7 +317,7 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
 
               <div className="space-y-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Starting Service Inspection Fee (Rs.)</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Starting Service Inspection Fee (Rs.) *</label>
                   <div className="relative">
                     <span className="absolute left-3 top-2.5 text-sm font-bold text-slate-400">Rs.</span>
                     <input
@@ -241,20 +325,34 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
                       required
                       value={formData.startingPrice}
                       onChange={(e) => handleChange('startingPrice', e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#004331]"
+                      className={`w-full bg-slate-50 border rounded-xl pl-10 pr-4 py-2.5 text-sm font-bold text-slate-900 focus:outline-none ${
+                        errors.startingPrice ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:ring-2 focus:ring-[#004331]'
+                      }`}
                     />
                   </div>
+                  {errors.startingPrice && (
+                    <p className="text-xs font-bold text-red-600 mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.startingPrice}
+                    </p>
+                  )}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Service Specialty Description</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Service Specialty Description *</label>
                   <textarea
                     rows={3}
                     placeholder="Briefly describe what services you excel at (e.g., Inverter AC PCB repairs, plumbing pipe leak fittings)..."
                     value={formData.serviceDescription}
                     onChange={(e) => handleChange('serviceDescription', e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#004331]"
+                    className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-xs font-medium text-slate-900 focus:outline-none ${
+                      errors.serviceDescription ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-300 focus:ring-2 focus:ring-[#004331]'
+                    }`}
                   />
+                  {errors.serviceDescription && (
+                    <p className="text-xs font-bold text-red-600 mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" /> {errors.serviceDescription}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -327,11 +425,13 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
                   className={`p-4 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center text-center transition-all ${
                     formData.cnicUploaded
                       ? 'bg-emerald-50 border-emerald-600 text-[#004331]'
+                      : errors.cnicUploaded
+                      ? 'bg-red-50 border-red-500 text-red-700'
                       : 'bg-slate-50 border-slate-300 hover:border-slate-400 text-slate-600'
                   }`}
                 >
                   <UploadCloud className="w-7 h-7 mb-1" />
-                  <span className="font-extrabold text-xs">CNIC Front & Back</span>
+                  <span className="font-extrabold text-xs">CNIC Front & Back *</span>
                   <span className="text-[10px] text-slate-500 font-medium">
                     {formData.cnicUploaded ? '✓ Uploaded' : 'Click to Upload'}
                   </span>
@@ -353,6 +453,11 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
                   </span>
                 </button>
               </div>
+              {errors.cnicUploaded && (
+                <p className="text-xs font-bold text-red-600 flex items-center gap-1">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errors.cnicUploaded}
+                </p>
+              )}
             </div>
           )}
 
@@ -365,7 +470,9 @@ export const ProviderOnboardingModal: React.FC<ProviderOnboardingModalProps> = (
                   <h3 className="font-extrabold text-sm text-slate-900">Application Summary</h3>
                 </div>
                 <div className="text-xs space-y-1 text-slate-700 font-medium">
-                  <p><strong>Name:</strong> {formData.fullName || 'Dayanand Sharma'}</p>
+                  <p><strong>Name:</strong> {formData.fullName}</p>
+                  <p><strong>Phone:</strong> {formData.phone}</p>
+                  <p><strong>CNIC:</strong> {formData.cnic}</p>
                   <p><strong>Trade:</strong> {formData.profession}</p>
                   <p><strong>Coverage:</strong> {formData.locality}</p>
                   <p><strong>Starting Rate:</strong> Rs. {formData.startingPrice}</p>

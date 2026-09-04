@@ -40,15 +40,33 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'easypaisa' | 'jazzcash'>('cod');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [createdRequest, setCreatedRequest] = useState<ServiceRequest | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const validateCurrentStep = (): boolean => {
+    setErrorMessage('');
+    if (step === 2) {
+      if (!problemDescription || problemDescription.trim().length < 10) {
+        setErrorMessage('Please describe the problem in at least 10 characters (e.g. AC cooling trip issue).');
+        return false;
+      }
+    }
+    if (step === 4) {
+      if (!sectorAddress || sectorAddress.trim().length < 5) {
+        setErrorMessage('Please provide a valid doorstep street & house address.');
+        return false;
+      }
+    }
+    return true;
+  };
 
   const handleNextStep = () => {
-    if (step === 2 && !problemDescription.trim()) {
-      return;
+    if (validateCurrentStep()) {
+      setStep((prev) => prev + 1);
     }
-    setStep((prev) => prev + 1);
   };
 
   const handlePrevStep = () => {
+    setErrorMessage('');
     setStep((prev) => Math.max(1, prev - 1));
   };
 
@@ -147,16 +165,27 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {/* STEP 2: Describe Issue */}
         {step === 2 && (
           <div className="space-y-4">
-            <h4 className="font-headline font-extrabold text-sm text-slate-900">Step 2: Describe What Needs Fixing</h4>
+            <h4 className="font-headline font-extrabold text-sm text-slate-900">Step 2: Describe What Needs Fixing *</h4>
             <div className="space-y-2">
               <textarea
                 rows={4}
                 value={problemDescription}
-                onChange={(e) => setProblemDescription(e.target.value)}
+                onChange={(e) => {
+                  setProblemDescription(e.target.value);
+                  if (errorMessage) setErrorMessage('');
+                }}
                 placeholder="Example: AC inverter PCB unit trip in peak heat, gas leakage test needed..."
-                className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#004331]"
+                className={`w-full p-3.5 bg-slate-50 border rounded-2xl text-xs font-medium text-slate-900 focus:outline-none ${
+                  errorMessage ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-200 focus:ring-2 focus:ring-[#004331]'
+                }`}
               ></textarea>
-              <p className="text-[11px] text-slate-400 font-medium">Be as specific as possible so the craftsman brings exact tools.</p>
+              {errorMessage ? (
+                <p className="text-xs font-bold text-red-600 flex items-center gap-1">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errorMessage}
+                </p>
+              ) : (
+                <p className="text-[11px] text-slate-400 font-medium">Be as specific as possible so the craftsman brings exact tools.</p>
+              )}
             </div>
           </div>
         )}
@@ -176,7 +205,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {/* STEP 4: Address Location */}
         {step === 4 && (
           <div className="space-y-4">
-            <h4 className="font-headline font-extrabold text-sm text-slate-900">Step 4: Confirm Doorstep Location</h4>
+            <h4 className="font-headline font-extrabold text-sm text-slate-900">Step 4: Confirm Doorstep Location *</h4>
             <div className="space-y-3">
               <div className="flex items-center gap-2 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-bold text-[#004331]">
                 <MapPin className="w-4 h-4" />
@@ -185,10 +214,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <input
                 type="text"
                 value={sectorAddress}
-                onChange={(e) => setSectorAddress(e.target.value)}
+                onChange={(e) => {
+                  setSectorAddress(e.target.value);
+                  if (errorMessage) setErrorMessage('');
+                }}
                 placeholder="House/Plot number, Street address..."
-                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none"
+                className={`w-full p-3 bg-slate-50 border rounded-xl text-xs font-bold text-slate-900 focus:outline-none ${
+                  errorMessage ? 'border-red-500 ring-2 ring-red-200' : 'border-slate-200'
+                }`}
               />
+              {errorMessage && (
+                <p className="text-xs font-bold text-red-600 flex items-center gap-1">
+                  <AlertCircle className="w-3.5 h-3.5" /> {errorMessage}
+                </p>
+              )}
             </div>
           </div>
         )}
