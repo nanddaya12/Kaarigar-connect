@@ -12,7 +12,18 @@ import {
   Sparkles,
   Map,
   Bike,
-  Crosshair
+  Shield,
+  UserCheck,
+  CheckCircle2,
+  Power,
+  Users,
+  FileText,
+  Grid,
+  Star,
+  AlertTriangle,
+  HelpCircle,
+  TrendingUp,
+  Inbox
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types/database.types';
@@ -30,7 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSearch,
   onOpenChat,
 }) => {
-  const { role, setRole, locality, setLocality } = useAuth();
+  const { role, setRole, locality, setLocality, isAvailable, toggleAvailability } = useAuth();
   const [showLocalityMenu, setShowLocalityMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -44,16 +55,46 @@ export const Navbar: React.FC<NavbarProps> = ({
     { name: 'Citizen Colony / Wadhu Wah', value: 'Citizen Colony' }
   ];
 
-  const navItems = [
-    { id: 'home', label: 'Services', icon: Sparkles },
-    { id: 'map', label: 'Map', icon: Map },
-    { id: 'ai_triage', label: 'AI Triage', icon: Sparkles, badge: true },
-    { id: 'tracking', label: 'Live Orders', icon: Bike },
-    { id: 'provider', label: 'Pro Console', icon: Wrench },
+  // Role-Specific Desktop Nav Links
+  const customerNavItems = [
+    { id: 'home', label: 'Home', icon: Sparkles },
+    { id: 'explore', label: 'Explore', icon: Map },
+    { id: 'how_it_works', label: 'How It Works', icon: HelpCircle },
+    { id: 'provider', label: 'Become a Provider', icon: Wrench },
   ];
 
+  const providerNavItems = [
+    { id: 'provider', label: 'Dashboard', icon: Sparkles },
+    { id: 'provider_requests', label: 'Requests', icon: Inbox, badge: true },
+    { id: 'provider_jobs', label: 'Jobs', icon: Bike },
+    { id: 'chat_view', label: 'Messages', icon: Bell },
+    { id: 'provider_earnings', label: 'Earnings', icon: TrendingUp },
+    { id: 'profile', label: 'Profile', icon: UserCheck },
+  ];
+
+  const adminNavItems = [
+    { id: 'admin', label: 'Dashboard', icon: Sparkles },
+    { id: 'admin_users', label: 'Users', icon: Users },
+    { id: 'admin_providers', label: 'Providers', icon: Wrench },
+    { id: 'admin_verification', label: 'Verification', icon: ShieldCheck, badge: true },
+    { id: 'admin_requests', label: 'Requests', icon: FileText },
+    { id: 'admin_categories', label: 'Categories', icon: Grid },
+    { id: 'admin_reviews', label: 'Reviews', icon: Star },
+    { id: 'admin_reports', label: 'Reports', icon: AlertTriangle },
+  ];
+
+  const currentNavItems = role === 'customer' 
+    ? customerNavItems 
+    : role === 'provider' 
+    ? providerNavItems 
+    : adminNavItems;
+
   const handleNavClick = (viewId: string) => {
-    onNavigate(viewId);
+    if (viewId === 'chat_view') {
+      onOpenChat();
+    } else {
+      onNavigate(viewId);
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -64,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* BRAND LOGO & LOCALITY SELECTOR */}
         <div className="flex items-center gap-3">
           <button
-            onClick={() => handleNavClick('home')}
+            onClick={() => handleNavClick(role === 'customer' ? 'home' : role === 'provider' ? 'provider' : 'admin')}
             className="flex items-center gap-2.5 group focus:outline-none shrink-0 text-left"
           >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 text-slate-950 font-headline font-extrabold text-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
@@ -82,49 +123,51 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <div className="h-5 w-px bg-emerald-800 hidden md:block"></div>
 
-          {/* Location Dropdown Picker */}
-          <div className="relative hidden sm:block">
-            <button
-              onClick={() => setShowLocalityMenu(!showLocalityMenu)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-900/60 hover:bg-emerald-900 border border-emerald-700/80 text-white rounded-full text-xs font-semibold transition-colors shadow-xs"
-            >
-              <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="truncate max-w-[130px] font-bold">{locality}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
-            </button>
+          {/* Location Dropdown Picker (For Customers/Providers) */}
+          {role !== 'admin' && (
+            <div className="relative hidden sm:block">
+              <button
+                onClick={() => setShowLocalityMenu(!showLocalityMenu)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-900/60 hover:bg-emerald-900 border border-emerald-700/80 text-white rounded-full text-xs font-semibold transition-colors shadow-xs"
+              >
+                <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span className="truncate max-w-[130px] font-bold">{locality}</span>
+                <ChevronDown className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+              </button>
 
-            {showLocalityMenu && (
-              <div className="absolute left-0 top-full mt-2 w-64 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
-                <p className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider px-2 py-1">
-                  Hyderabad Coverage Corridors
-                </p>
-                <div className="space-y-0.5 mt-1">
-                  {coverageCorridors.map((c) => (
-                    <button
-                      key={c.value}
-                      onClick={() => {
-                        setLocality(c.value);
-                        setShowLocalityMenu(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition-colors ${
-                        c.value === locality
-                          ? 'bg-emerald-800 text-white font-bold'
-                          : 'text-slate-300 hover:bg-slate-800'
-                      }`}
-                    >
-                      <span>{c.name}</span>
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                    </button>
-                  ))}
+              {showLocalityMenu && (
+                <div className="absolute left-0 top-full mt-2 w-64 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
+                  <p className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider px-2 py-1">
+                    Hyderabad Coverage Corridors
+                  </p>
+                  <div className="space-y-0.5 mt-1">
+                    {coverageCorridors.map((c) => (
+                      <button
+                        key={c.value}
+                        onClick={() => {
+                          setLocality(c.value);
+                          setShowLocalityMenu(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition-colors ${
+                          c.value === locality
+                            ? 'bg-emerald-800 text-white font-bold'
+                            : 'text-slate-300 hover:bg-slate-800'
+                        }`}
+                      >
+                        <span>{c.name}</span>
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* DESKTOP NAV LINKS */}
+        {/* ROLE-SPECIFIC DESKTOP NAV LINKS */}
         <nav className="hidden lg:flex items-center gap-1 bg-emerald-950/60 p-1 rounded-2xl border border-emerald-800/80">
-          {navItems.map((item) => {
+          {currentNavItems.map((item) => {
             const isActive = activeView === item.id;
             return (
               <button
@@ -145,6 +188,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* RIGHT CONTROLS */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* Provider Availability Toggle Button */}
+          {role === 'provider' && (
+            <button
+              onClick={toggleAvailability}
+              className={`px-3 py-1.5 rounded-full text-xs font-extrabold transition-all flex items-center gap-1.5 border shadow-sm ${
+                isAvailable
+                  ? 'bg-emerald-950 text-emerald-300 border-emerald-600'
+                  : 'bg-slate-800 text-slate-400 border-slate-700'
+              }`}
+            >
+              <Power className={`w-3.5 h-3.5 ${isAvailable ? 'text-emerald-400' : 'text-slate-500'}`} />
+              <span>{isAvailable ? 'AVAILABLE ●' : 'OFFLINE'}</span>
+            </button>
+          )}
+
           {/* Quick Search Trigger */}
           <button
             onClick={onOpenSearch}
@@ -198,9 +256,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             {showProfileMenu && (
-              <div className="absolute right-0 top-full mt-2 w-52 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
+              <div className="absolute right-0 top-full mt-2 w-56 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
                 <p className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider px-2 py-1">
-                  Select User Persona
+                  Switch Active Role Experience
                 </p>
                 {(['customer', 'provider', 'admin'] as UserRole[]).map((r) => (
                   <button
@@ -218,7 +276,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         : 'text-slate-300 hover:bg-slate-800'
                     }`}
                   >
-                    <span>{r === 'customer' ? '🧑 Customer' : r === 'provider' ? '🛠️ Provider' : '🛡️ Admin Auditor'}</span>
+                    <span>{r === 'customer' ? '🧑 Customer' : r === 'provider' ? '🛠️ Provider' : '🛡️ Admin Console'}</span>
                     {role === r && <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />}
                   </button>
                 ))}
@@ -255,7 +313,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="grid grid-cols-2 gap-2">
-            {navItems.map((item) => {
+            {currentNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeView === item.id;
               return (
@@ -273,19 +331,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               );
             })}
-          </div>
-
-          <div className="flex items-center justify-between p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-100">
-            <div>
-              <p className="text-[10px] font-bold text-amber-400 uppercase">Emergency Hotline</p>
-              <p className="font-extrabold text-sm text-white">022-2784910</p>
-            </div>
-            <a
-              href="tel:0222784910"
-              className="px-3.5 py-1.5 bg-amber-500 text-slate-950 rounded-xl text-xs font-extrabold shadow-sm"
-            >
-              Call Now
-            </a>
           </div>
         </div>
       )}

@@ -1,66 +1,64 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { UserRole, Profile } from '../types/database.types';
+import { UserRole } from '../types/database.types';
 
 interface AuthContextType {
-  user: Profile | null;
   role: UserRole;
   setRole: (role: UserRole) => void;
   locality: string;
   setLocality: (locality: string) => void;
-  login: (email: string, role?: UserRole) => void;
-  logout: () => void;
-  isAuthenticated: boolean;
+  isAvailable: boolean;
+  toggleAvailability: () => void;
+  savedProviderIds: string[];
+  toggleSaveProvider: (id: string) => void;
+  isProviderSaved: (id: string) => boolean;
+  user: {
+    name: string;
+    email: string;
+    phone: string;
+    avatar: string;
+  };
 }
-
-const defaultUser: Profile = {
-  id: 'cust-101',
-  full_name: 'Shahid Mehmood',
-  email: 'shahid@example.com',
-  phone: '0301-5544332',
-  role: 'customer',
-  location: 'Latifabad Unit 6, Hyderabad',
-  created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString()
-};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<Profile | null>(defaultUser);
-  const [role, setRoleState] = useState<UserRole>('customer');
+  const [role, setRole] = useState<UserRole>('customer');
   const [locality, setLocality] = useState<string>('Latifabad Unit 6');
+  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [savedProviderIds, setSavedProviderIds] = useState<string[]>(['kaarigar-1']);
 
-  const setRole = (newRole: UserRole) => {
-    setRoleState(newRole);
-    if (user) {
-      setUser({ ...user, role: newRole });
-    }
+  const [user] = useState({
+    name: 'Dayanand (Customer)',
+    email: 'nanddaya12@github.com',
+    phone: '0300-1234567',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'
+  });
+
+  const toggleAvailability = () => {
+    setIsAvailable((prev) => !prev);
   };
 
-  const login = (email: string, userRole: UserRole = 'customer') => {
-    setUser({
-      ...defaultUser,
-      email,
-      role: userRole
-    });
-    setRoleState(userRole);
+  const toggleSaveProvider = (id: string) => {
+    setSavedProviderIds((prev) =>
+      prev.includes(id) ? prev.filter((pId) => pId !== id) : [...prev, id]
+    );
   };
 
-  const logout = () => {
-    setUser(null);
-  };
+  const isProviderSaved = (id: string) => savedProviderIds.includes(id);
 
   return (
     <AuthContext.Provider
       value={{
-        user,
         role,
         setRole,
         locality,
         setLocality,
-        login,
-        logout,
-        isAuthenticated: !!user
+        isAvailable,
+        toggleAvailability,
+        savedProviderIds,
+        toggleSaveProvider,
+        isProviderSaved,
+        user,
       }}
     >
       {children}
@@ -68,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');

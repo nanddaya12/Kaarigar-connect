@@ -11,6 +11,7 @@ import { OrderTracker } from './components/dashboard/OrderTracker';
 import { ProviderDashboardPage } from './pages/provider/ProviderDashboardPage';
 import { BookingModal } from './components/marketplace/BookingModal';
 import { ChatDrawer } from './features/chat/ChatDrawer';
+import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 import { mockServiceRequests, bookingService } from './services/bookingService';
 import { marketplaceService } from './services/marketplaceService';
 import { ProviderProfile, ServiceRequest } from './types/database.types';
@@ -86,7 +87,7 @@ const MainAppContent: React.FC = () => {
           />
         )}
 
-        {activeView === 'map' && (
+        {(activeView === 'map' || activeView === 'explore') && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
             <SectorMap
               providers={allProviders}
@@ -108,7 +109,7 @@ const MainAppContent: React.FC = () => {
           />
         )}
 
-        {activeView === 'tracking' && (
+        {(activeView === 'tracking' || activeView === 'requests' || activeView === 'provider_requests' || activeView === 'provider_jobs') && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
             <OrderTracker
               request={activeRequest}
@@ -121,7 +122,9 @@ const MainAppContent: React.FC = () => {
           </div>
         )}
 
-        {activeView === 'provider' && <ProviderDashboardPage />}
+        {(activeView === 'provider' || activeView === 'provider_earnings') && <ProviderDashboardPage />}
+
+        {(activeView === 'admin' || activeView.startsWith('admin_')) && <AdminDashboardPage />}
       </main>
 
       <Footer onNavigate={setActiveView} />
