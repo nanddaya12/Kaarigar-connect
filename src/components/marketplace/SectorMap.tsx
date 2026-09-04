@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import L from 'leaflet';
+import React, { useState } from 'react';
 import { ProviderProfile } from '../../types/database.types';
-import { Compass, Navigation, Layers, ShieldCheck, MapPin, Sparkles } from 'lucide-react';
+import { Compass, Layers, Navigation, ShieldCheck, MapPin, ExternalLink, PhoneCall } from 'lucide-react';
 
 interface SectorMapProps {
   providers: ProviderProfile[];
@@ -9,210 +8,85 @@ interface SectorMapProps {
 }
 
 export const SectorMap: React.FC<SectorMapProps> = ({ providers, onSelectProvider }) => {
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const mapInstanceRef = useRef<L.Map | null>(null);
-  const tileLayerRef = useRef<L.TileLayer | null>(null);
-  
-  const [mapMode, setMapMode] = useState<'street' | 'satellite'>('satellite');
+  const [mapType, setMapType] = useState<'satellite' | 'roadmap'>('satellite');
   const [activeSector, setActiveSector] = useState<string>('Latifabad Unit 6');
 
-  // Hyderabad Sector Coordinates
+  // Hyderabad Google Maps Corridors
   const sectors = [
-    { name: 'Latifabad Unit 6', lat: 25.3670, lng: 68.3690, zoom: 14 },
-    { name: 'Qasimabad Phase 1', lat: 25.4050, lng: 68.3300, zoom: 14 },
-    { name: 'Saddar Bazaar & Cantt', lat: 25.3960, lng: 68.3578, zoom: 15 },
-    { name: 'Auto Bhan Road', lat: 25.3780, lng: 68.3540, zoom: 14 },
-    { name: 'Citizen Colony', lat: 25.4120, lng: 68.3450, zoom: 14 }
+    { name: 'Latifabad Unit 6', query: 'Latifabad+Unit+6+Hyderabad+Pakistan', lat: 25.3670, lng: 68.3690 },
+    { name: 'Qasimabad Phase 1', query: 'Qasimabad+Hyderabad+Pakistan', lat: 25.4050, lng: 68.3300 },
+    { name: 'Saddar Bazaar & Cantt', query: 'Saddar+Bazaar+Hyderabad+Pakistan', lat: 25.3960, lng: 68.3578 },
+    { name: 'Auto Bhan Road', query: 'Auto+Bhan+Road+Hyderabad+Pakistan', lat: 25.3780, lng: 68.3540 },
+    { name: 'Citizen Colony', query: 'Citizen+Colony+Hyderabad+Pakistan', lat: 25.4120, lng: 68.3450 }
   ];
 
-  // Map Tile Sources
-  const streetTiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  const satelliteTiles = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+  const activeSectorInfo = sectors.find(s => s.name === activeSector) || sectors[0];
 
-  useEffect(() => {
-    if (!mapContainerRef.current) return;
-
-    // Initialize Leaflet Map
-    if (!mapInstanceRef.current) {
-      const map = L.map(mapContainerRef.current, {
-        center: [25.3960, 68.3578],
-        zoom: 13,
-        zoomControl: false
-      });
-
-      // Add Zoom Control to Top Right
-      L.control.zoom({ position: 'topright' }).addTo(map);
-
-      // Default Satellite Layer
-      const initialLayer = L.tileLayer(satelliteTiles, {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-        maxZoom: 18
-      }).addTo(map);
-
-      tileLayerRef.current = initialLayer;
-      mapInstanceRef.current = map;
-    }
-
-    return () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
-        mapInstanceRef.current = null;
-      }
-    };
-  }, []);
-
-  // Handle Satellite vs Street Toggle
-  useEffect(() => {
-    if (!mapInstanceRef.current) return;
-    const map = mapInstanceRef.current;
-
-    if (tileLayerRef.current) {
-      map.removeLayer(tileLayerRef.current);
-    }
-
-    const newUrl = mapMode === 'satellite' ? satelliteTiles : streetTiles;
-    const attribution = mapMode === 'satellite' 
-      ? 'Tiles &copy; Esri &mdash; World Imagery'
-      : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-    const newLayer = L.tileLayer(newUrl, { attribution, maxZoom: 18 }).addTo(map);
-    tileLayerRef.current = newLayer;
-  }, [mapMode]);
-
-  // Update Markers on Map
-  useEffect(() => {
-    if (!mapInstanceRef.current) return;
-    const map = mapInstanceRef.current;
-
-    // Clear existing non-tile layers (markers)
-    map.eachLayer((layer) => {
-      if (layer instanceof L.Marker) {
-        map.removeLayer(layer);
-      }
-    });
-
-    // Add Custom Marker Pins for Providers
-    providers.forEach((p, idx) => {
-      const targetSector = sectors[idx % sectors.length];
-      const offsetLat = (idx % 2 === 0 ? 0.002 : -0.002) * (idx + 1);
-      const offsetLng = (idx % 2 === 0 ? -0.002 : 0.002) * (idx + 1);
-      const lat = targetSector.lat + offsetLat;
-      const lng = targetSector.lng + offsetLng;
-
-      // Custom HTML Marker Icon
-      const customIcon = L.divIcon({
-        className: 'custom-map-pin',
-        html: `
-          <div class="relative group cursor-pointer flex flex-col items-center">
-            <div class="w-10 h-10 rounded-full ring-4 ring-emerald-600 bg-white p-0.5 shadow-2xl relative flex items-center justify-center transform transition-transform hover:scale-110">
-              <img src="${p.avatar_url}" alt="${p.name}" class="w-full h-full rounded-full object-cover" />
-              <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-700 text-white rounded-full flex items-center justify-center text-[9px] font-bold border border-white">✓</span>
-            </div>
-            <div class="w-2.5 h-2.5 bg-emerald-700 transform rotate-45 -mt-1 shadow-md"></div>
-          </div>
-        `,
-        iconSize: [40, 48],
-        iconAnchor: [20, 48],
-        popupAnchor: [0, -48]
-      });
-
-      const popupContent = `
-        <div style="font-family: system-ui, -apple-system, sans-serif; min-width: 180px; padding: 4px;">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <img src="${p.avatar_url}" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #0d5c46;" />
-            <div>
-              <h4 style="margin: 0; font-size: 13px; font-weight: 800; color: #0f172a;">${p.name}</h4>
-              <p style="margin: 0; font-size: 11px; font-weight: 600; color: #0d5c46;">${p.profession}</p>
-            </div>
-          </div>
-          <div style="display: flex; align-items: center; justify-between: space-between; margin-top: 6px; font-size: 11px; background: #f1f5f9; padding: 4px 8px; border-radius: 8px;">
-            <span style="font-weight: 700; color: #334155;">Rs. ${p.starting_price} Base</span>
-            <span style="color: #166534; font-weight: 800;">★ ${p.rating}</span>
-          </div>
-          <button id="btn-select-${p.id}" style="width: 100%; margin-top: 8px; background: #0d5c46; color: white; border: none; padding: 6px 0; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer;">
-            View Kaarigar Profile
-          </button>
-        </div>
-      `;
-
-      const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
-      marker.bindPopup(popupContent);
-
-      marker.on('popupopen', () => {
-        const btn = document.getElementById(`btn-select-${p.id}`);
-        if (btn) {
-          btn.addEventListener('click', () => onSelectProvider(p.id));
-        }
-      });
-    });
-  }, [providers]);
-
-  // Jump Map Camera to Sector
-  const handleFlyToSector = (sector: typeof sectors[0]) => {
-    setActiveSector(sector.name);
-    if (mapInstanceRef.current) {
-      mapInstanceRef.current.flyTo([sector.lat, sector.lng], sector.zoom, { duration: 1.5 });
-    }
-  };
+  // Google Maps Embed URL (t=k for Satellite, t=m for Standard Map)
+  const mapTypeParam = mapType === 'satellite' ? 'k' : 'm';
+  const googleMapEmbedUrl = `https://maps.google.com/maps?q=${activeSectorInfo.query}&t=${mapTypeParam}&z=14&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <div className="space-y-4">
       {/* Map Control Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl shadow-md border border-slate-200">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-center font-bold">
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-[#004331] flex items-center justify-center font-bold">
             <Compass className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-headline font-extrabold text-base text-slate-900 leading-none">Hyderabad Live GPS Map</h3>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[10px] font-extrabold flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping"></span> Live Satellite
+              <h3 className="font-headline font-extrabold text-base text-slate-900 leading-none">
+                Google Maps Live GPS Directory
+              </h3>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-[#004331] text-[10px] font-extrabold flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping"></span> Google Live
               </span>
             </div>
-            <p className="text-xs text-slate-500 font-medium">Real-time artisan dispatch radar across Hyderabad sectors</p>
+            <p className="text-xs text-slate-500 font-medium">Real-time Google Maps dispatch engine across Hyderabad sectors</p>
           </div>
         </div>
 
-        {/* Satellite vs Street Map Mode Toggle */}
+        {/* Google Maps View Switcher (Satellite vs Roadmap) */}
         <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
           <button
-            onClick={() => setMapMode('satellite')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
-              mapMode === 'satellite'
-                ? 'bg-emerald-800 text-white shadow-sm'
-                : 'text-slate-600 hover:bg-white/80'
+            onClick={() => setMapType('satellite')}
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+              mapType === 'satellite'
+                ? 'bg-[#004331] text-white shadow-sm'
+                : 'text-slate-600 hover:bg-white'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
-            <span>🛰️ Satellite View</span>
+            <span>🛰️ Google Satellite</span>
           </button>
+
           <button
-            onClick={() => setMapMode('street')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
-              mapMode === 'street'
-                ? 'bg-emerald-800 text-white shadow-sm'
-                : 'text-slate-600 hover:bg-white/80'
+            onClick={() => setMapType('roadmap')}
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+              mapType === 'roadmap'
+                ? 'bg-[#004331] text-white shadow-sm'
+                : 'text-slate-600 hover:bg-white'
             }`}
           >
             <Navigation className="w-3.5 h-3.5" />
-            <span>🗺️ Street View</span>
+            <span>🗺️ Google Map</span>
           </button>
         </div>
       </div>
 
-      {/* Sector Quick Jump Pills */}
+      {/* Sector Focus Buttons */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none snap-x">
         <span className="text-xs font-bold text-slate-500 shrink-0 flex items-center gap-1">
-          <MapPin className="w-3.5 h-3.5 text-amber-600" /> Sector Focus:
+          <MapPin className="w-3.5 h-3.5 text-amber-600" /> Google Sector Focus:
         </span>
         {sectors.map((sec) => (
           <button
             key={sec.name}
-            onClick={() => handleFlyToSector(sec)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all ${
+            onClick={() => setActiveSector(sec.name)}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all ${
               activeSector === sec.name
-                ? 'bg-slate-900 text-white shadow-md'
+                ? 'bg-slate-900 text-white shadow-md scale-102 ring-2 ring-slate-800'
                 : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
             }`}
           >
@@ -221,23 +95,100 @@ export const SectorMap: React.FC<SectorMapProps> = ({ providers, onSelectProvide
         ))}
       </div>
 
-      {/* Interactive Map Canvas Container */}
-      <div className="relative w-full h-[540px] rounded-3xl overflow-hidden shadow-xl border border-slate-300 z-10">
-        <div ref={mapContainerRef} className="w-full h-full" />
+      {/* Main Google Maps Grid & Active Craftsmen Overlay */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        {/* Google Maps iFrame */}
+        <div className="lg:col-span-8 relative w-full h-[520px] rounded-3xl overflow-hidden shadow-xl border border-slate-300">
+          <iframe
+            title="Google Maps Hyderabad"
+            width="100%"
+            height="100%"
+            src={googleMapEmbedUrl}
+            className="border-0 w-full h-full"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
 
-        {/* Map Legend Overlay */}
-        <div className="absolute bottom-4 left-4 right-4 z-20 flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 bg-white/95 backdrop-blur-md rounded-2xl text-xs font-bold text-slate-700 border border-slate-200 shadow-lg">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 ring-2 ring-emerald-200"></span> NADRA Verified Kaarigar
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-amber-200"></span> Instant Doorstep Dispatch
-            </span>
+          {/* Floating Google Map Overlay Badge */}
+          <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-slate-200 max-w-xs space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">Active Sector</span>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-[#004331] text-[9px] font-extrabold">Verified</span>
+            </div>
+            <p className="font-extrabold text-xs text-slate-900 leading-tight">{activeSectorInfo.name}</p>
+            <p className="text-[10px] text-slate-500 font-mono">GPS: {activeSectorInfo.lat}° N, {activeSectorInfo.lng}° E</p>
           </div>
-          <span className="font-mono text-[11px] text-slate-500 flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" /> Latifabad Unit 6 · 25.3960° N, 68.3578° E
-          </span>
+
+          <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between px-4 py-2 bg-white/95 backdrop-blur-md rounded-2xl text-xs font-bold text-slate-700 border border-slate-200 shadow-md">
+            <span className="flex items-center gap-1.5 text-[#004331]">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" /> Google Maps Powered GPS Dispatch
+            </span>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${activeSectorInfo.query}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] text-emerald-800 hover:underline flex items-center gap-1"
+            >
+              <span>Open in Google Maps App</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
+
+        {/* Live Active Kaarigar Pins Sidebar */}
+        <div className="lg:col-span-4 bg-white p-4 rounded-3xl border border-slate-200 shadow-lg space-y-3 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h4 className="font-headline font-extrabold text-sm text-slate-900">Craftsmen in {activeSector}</h4>
+              <span className="text-[10px] font-extrabold text-[#004331] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                {providers.length} Active
+              </span>
+            </div>
+
+            <div className="space-y-3 mt-3 max-h-[380px] overflow-y-auto pr-1">
+              {providers.map((p) => (
+                <div
+                  key={p.id}
+                  onClick={() => onSelectProvider(p.id)}
+                  className="p-3 rounded-2xl bg-slate-50 hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 transition-all cursor-pointer space-y-2 group"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <img src={p.avatar_url} alt={p.name} className="w-9 h-9 rounded-full object-cover border border-emerald-600" />
+                      <div>
+                        <p className="font-extrabold text-xs text-slate-900 group-hover:text-[#004331] leading-tight">{p.name}</p>
+                        <p className="text-[10px] text-emerald-800 font-bold">{p.profession}</p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-extrabold text-slate-900 bg-white px-2 py-1 rounded-lg border border-slate-200 shadow-xs">
+                      Rs. {p.starting_price}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-200/60 font-medium">
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-amber-600" /> {p.service_area}
+                    </span>
+                    <span className="text-amber-800 font-bold">★ {p.rating} ({p.review_count})</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-3 rounded-2xl bg-[#004331] text-white flex items-center justify-between">
+            <div>
+              <p className="text-[10px] font-bold text-emerald-200 uppercase">Emergency Dispatch</p>
+              <p className="font-extrabold text-xs text-white">022-2784910</p>
+            </div>
+            <a
+              href="tel:0222784910"
+              className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-extrabold shadow-sm transition-colors flex items-center gap-1"
+            >
+              <PhoneCall className="w-3.5 h-3.5" /> Call
+            </a>
+          </div>
         </div>
       </div>
     </div>
