@@ -28,6 +28,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface NavbarProps {
   activeView: string;
@@ -44,46 +45,46 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenChat,
   onOpenProviderOnboarding,
 }) => {
-  const { role, locality, setLocality, isAvailable, toggleAvailability, user } = useAuth();
+  const { role, locality, setLocality, isAvailable, toggleAvailability, user, signOut } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
   const [showLocalityMenu, setShowLocalityMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [language, setLanguage] = useState<'EN' | 'UR'>('EN');
 
   const coverageCorridors = [
     { name: 'Latifabad (Units 1-12)', value: 'Latifabad Unit 6' },
     { name: 'Qasimabad (Phases 1-2)', value: 'Qasimabad Phase 1' },
     { name: 'Auto Bhan Road', value: 'Auto Bhan Road' },
-    { name: 'Saddar & Cantt', value: 'Saddar Bazaar & Cantt' },
+    { name: 'Saddar Bazaar & Cantt', value: 'Saddar Bazaar & Cantt' },
     { name: 'Citizen Colony / Wadhu Wah', value: 'Citizen Colony' }
   ];
 
   // Role-Specific Desktop Nav Links
   const customerNavItems = [
-    { id: 'home', label: 'Home', icon: Sparkles },
-    { id: 'explore', label: 'Explore', icon: Map },
-    { id: 'how_it_works', label: 'How It Works', icon: HelpCircle },
-    { id: 'become_provider', label: 'Become a Provider', icon: Wrench },
+    { id: 'home', label: t('home'), icon: Sparkles },
+    { id: 'explore', label: t('explore'), icon: Map },
+    { id: 'how_it_works', label: t('how_it_works'), icon: HelpCircle },
+    { id: 'become_provider', label: t('become_provider'), icon: Wrench },
   ];
 
   const providerNavItems = [
-    { id: 'provider', label: 'Dashboard', icon: Sparkles },
-    { id: 'provider_requests', label: 'Requests', icon: Inbox, badge: true },
-    { id: 'provider_jobs', label: 'Jobs', icon: Bike },
-    { id: 'chat_view', label: 'Messages', icon: Bell },
-    { id: 'provider_earnings', label: 'Earnings', icon: TrendingUp },
-    { id: 'profile', label: 'Profile', icon: User },
+    { id: 'provider', label: t('dashboard'), icon: Sparkles },
+    { id: 'provider_requests', label: t('requests'), icon: Inbox, badge: true },
+    { id: 'provider_jobs', label: t('jobs'), icon: Bike },
+    { id: 'chat_view', label: t('messages'), icon: Bell },
+    { id: 'provider_earnings', label: t('earnings'), icon: TrendingUp },
+    { id: 'profile', label: t('profile'), icon: User },
   ];
 
   const adminNavItems = [
-    { id: 'admin', label: 'Dashboard', icon: Sparkles },
-    { id: 'admin_users', label: 'Users', icon: Users },
-    { id: 'admin_providers', label: 'Providers', icon: Wrench },
-    { id: 'admin_verification', label: 'Verification', icon: ShieldCheck, badge: true },
-    { id: 'admin_requests', label: 'Requests', icon: FileText },
-    { id: 'admin_categories', label: 'Categories', icon: Grid },
-    { id: 'admin_reviews', label: 'Reviews', icon: Star },
-    { id: 'admin_reports', label: 'Reports', icon: AlertTriangle },
+    { id: 'admin', label: t('dashboard'), icon: Sparkles },
+    { id: 'admin_users', label: t('users'), icon: Users },
+    { id: 'admin_providers', label: t('providers'), icon: Wrench },
+    { id: 'admin_verification', label: t('verification'), icon: ShieldCheck, badge: true },
+    { id: 'admin_requests', label: t('requests'), icon: FileText },
+    { id: 'admin_categories', label: t('categories'), icon: Grid },
+    { id: 'admin_reviews', label: t('reviews'), icon: Star },
+    { id: 'admin_reports', label: t('reports'), icon: AlertTriangle },
   ];
 
   const currentNavItems = role === 'customer' 
@@ -103,6 +104,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     setIsMobileMenuOpen(false);
   };
 
+  const handleSignOut = () => {
+    signOut();
+    setShowProfileMenu(false);
+    onNavigate('home');
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#004331] text-white shadow-xl border-b border-emerald-800/80 backdrop-blur-md">
       <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3">
@@ -118,10 +125,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div className="flex flex-col">
               <span className="font-headline font-extrabold text-base text-white leading-none tracking-tight">
-                Kaarigar<span className="text-amber-400">Connect</span>
+                {t('brand_title').split(' ')[0]}<span className="text-amber-400">Connect</span>
               </span>
               <span className="text-[9px] font-bold text-emerald-300 uppercase tracking-widest leading-none mt-0.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Hyderabad · Sindh
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> {t('tagline')}
               </span>
             </div>
           </button>
@@ -193,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* RIGHT CONTROLS */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Provider Availability Toggle Button (Only when in Provider experience) */}
+          {/* Provider Availability Toggle Button */}
           {role === 'provider' && (
             <button
               onClick={toggleAvailability}
@@ -215,7 +222,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             title="Search Services (⌘K)"
           >
             <Search className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden xl:inline text-slate-200">Search plumbers, electricians...</span>
+            <span className="hidden xl:inline text-slate-200">{t('search_placeholder')}</span>
             <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] bg-slate-900 text-emerald-300 rounded border border-emerald-700 font-mono">⌘K</kbd>
           </button>
 
@@ -238,7 +245,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-[#004331]"></span>
           </button>
 
-          {/* CLEAN CUSTOMER PROFILE DROPDOWN MENU (NO ROLE SWITCHER!) */}
+          {/* CLEAN CUSTOMER PROFILE DROPDOWN MENU */}
           <div className="relative">
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
@@ -258,7 +265,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="p-2 border-b border-slate-800 pb-3 mb-2 flex items-center gap-3">
                   <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full object-cover border border-amber-400" />
                   <div className="overflow-hidden">
-                    <p className="font-extrabold text-sm text-white truncate">{user.name.split(' ')[0]} Nand</p>
+                    <p className="font-extrabold text-sm text-white truncate">{user.name}</p>
                     <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-900 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
                       {role.toUpperCase()}
                     </span>
@@ -274,7 +281,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }}
                     className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
                   >
-                    <User className="w-4 h-4 text-amber-400" /> My Profile
+                    <User className="w-4 h-4 text-amber-400" /> {t('profile')}
                   </button>
 
                   <button
@@ -284,7 +291,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }}
                     className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
                   >
-                    <Receipt className="w-4 h-4 text-emerald-400" /> My Requests
+                    <Receipt className="w-4 h-4 text-emerald-400" /> {t('requests')}
                   </button>
 
                   <button
@@ -294,24 +301,27 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }}
                     className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
                   >
-                    <MessageSquare className="w-4 h-4 text-sky-400" /> Messages
+                    <MessageSquare className="w-4 h-4 text-sky-400" /> {t('messages')}
                   </button>
 
                   <button
                     onClick={() => {
-                      onNavigate('explore');
+                      onNavigate('saved');
                       setShowProfileMenu(false);
                     }}
                     className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
                   >
-                    <Bookmark className="w-4 h-4 text-amber-400" /> Saved Providers
+                    <Bookmark className="w-4 h-4 text-amber-400" /> {t('saved_providers')}
                   </button>
 
                   <button
-                    onClick={() => setShowProfileMenu(false)}
+                    onClick={() => {
+                      onNavigate('settings');
+                      setShowProfileMenu(false);
+                    }}
                     className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 hover:text-white flex items-center gap-2.5 transition-colors"
                   >
-                    <Settings className="w-4 h-4 text-slate-400" /> Settings
+                    <Settings className="w-4 h-4 text-slate-400" /> {t('settings')}
                   </button>
                 </div>
 
@@ -326,16 +336,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }}
                     className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center gap-2.5 transition-colors shadow-md mb-2"
                   >
-                    <Wrench className="w-4 h-4 text-slate-950" /> Become a Provider
+                    <Wrench className="w-4 h-4 text-slate-950" /> {t('become_provider')}
                   </button>
                 )}
 
                 {/* Sign Out */}
                 <button
-                  onClick={() => setShowProfileMenu(false)}
+                  onClick={handleSignOut}
                   className="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-950/40 flex items-center gap-2.5 transition-colors"
                 >
-                  <LogOut className="w-4 h-4 text-red-400" /> Sign Out
+                  <LogOut className="w-4 h-4 text-red-400" /> {t('sign_out')}
                 </button>
               </div>
             )}

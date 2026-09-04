@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { MobileNav } from './components/layout/MobileNav';
 import { HomePage } from './pages/public/HomePage';
 import { KaarigarProfilePage } from './pages/public/KaarigarProfilePage';
+import { HowItWorksPage } from './pages/public/HowItWorksPage';
+import { SettingsPage } from './pages/public/SettingsPage';
+import { SavedProvidersPage } from './pages/public/SavedProvidersPage';
 import { SectorMap } from './components/marketplace/SectorMap';
 import { AiDiagnosticWidget } from './components/ai/AiDiagnosticWidget';
 import { OrderTracker } from './components/dashboard/OrderTracker';
@@ -18,9 +24,11 @@ import { marketplaceService } from './services/marketplaceService';
 import { ProviderProfile, ServiceRequest } from './types/database.types';
 import { Search, X, ShieldCheck } from 'lucide-react';
 
-const MainAppContent: React.FC = () => {
-  const { role, setRole } = useAuth();
-  const [activeView, setActiveView] = useState<string>('home');
+const AppRoutes: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { setRole } = useAuth();
+
   const [selectedProviderId, setSelectedProviderId] = useState<string>('kaarigar-1');
   const [bookingProvider, setBookingProvider] = useState<ProviderProfile | null>(null);
   const [activeRequest, setActiveRequest] = useState<ServiceRequest>(mockServiceRequests[0]);
@@ -33,6 +41,58 @@ const MainAppContent: React.FC = () => {
   useEffect(() => {
     marketplaceService.getProviders().then(setAllProviders);
   }, []);
+
+  // Sync activeView with current URL path
+  const getActiveViewFromPath = (path: string): string => {
+    if (path === '/' || path === '') return 'home';
+    if (path.startsWith('/explore') || path.startsWith('/map')) return 'explore';
+    if (path.startsWith('/how-it-works')) return 'how_it_works';
+    if (path.startsWith('/profile')) return 'profile';
+    if (path.startsWith('/tracking') || path.startsWith('/requests')) return 'tracking';
+    if (path.startsWith('/settings')) return 'settings';
+    if (path.startsWith('/saved')) return 'saved';
+    if (path.startsWith('/provider/requests')) return 'provider_requests';
+    if (path.startsWith('/provider/jobs')) return 'provider_jobs';
+    if (path.startsWith('/provider/earnings')) return 'provider_earnings';
+    if (path.startsWith('/provider')) return 'provider';
+    if (path.startsWith('/admin/users')) return 'admin_users';
+    if (path.startsWith('/admin/providers')) return 'admin_providers';
+    if (path.startsWith('/admin/verification')) return 'admin_verification';
+    if (path.startsWith('/admin/requests')) return 'admin_requests';
+    if (path.startsWith('/admin/categories')) return 'admin_categories';
+    if (path.startsWith('/admin/reviews')) return 'admin_reviews';
+    if (path.startsWith('/admin/reports')) return 'admin_reports';
+    if (path.startsWith('/admin')) return 'admin';
+    return 'home';
+  };
+
+  const activeView = getActiveViewFromPath(location.pathname);
+
+  const handleNavigate = (viewId: string) => {
+    const routeMap: Record<string, string> = {
+      home: '/',
+      explore: '/explore',
+      how_it_works: '/how-it-works',
+      profile: '/profile',
+      tracking: '/tracking',
+      settings: '/settings',
+      saved: '/saved',
+      provider: '/provider',
+      provider_requests: '/provider/requests',
+      provider_jobs: '/provider/jobs',
+      provider_earnings: '/provider/earnings',
+      admin: '/admin',
+      admin_users: '/admin/users',
+      admin_providers: '/admin/providers',
+      admin_verification: '/admin/verification',
+      admin_requests: '/admin/requests',
+      admin_categories: '/admin/categories',
+      admin_reviews: '/admin/reviews',
+      admin_reports: '/admin/reports',
+    };
+    const targetRoute = routeMap[viewId] || '/';
+    navigate(targetRoute);
+  };
 
   // Global Keyboard Shortcuts (Cmd+K / Ctrl+K and Escape)
   useEffect(() => {
@@ -51,7 +111,7 @@ const MainAppContent: React.FC = () => {
 
   const handleSelectKaarigar = (id: string) => {
     setSelectedProviderId(id);
-    setActiveView('profile');
+    navigate('/profile');
   };
 
   const handleBookNow = (provider: ProviderProfile) => {
@@ -61,13 +121,13 @@ const MainAppContent: React.FC = () => {
   const handleBookingSuccess = (req: ServiceRequest) => {
     setActiveRequest(req);
     setBookingProvider(null);
-    setActiveView('tracking');
+    navigate('/tracking');
   };
 
   const handleOnboardingComplete = () => {
     setRole('provider');
     setShowOnboardingModal(false);
-    setActiveView('provider');
+    navigate('/provider');
   };
 
   const filteredProviders = allProviders.filter(
@@ -81,66 +141,106 @@ const MainAppContent: React.FC = () => {
     <div className="bg-[#FBFBF9] font-body text-[#1F2937] antialiased min-h-screen flex flex-col justify-between">
       <Navbar
         activeView={activeView}
-        onNavigate={setActiveView}
+        onNavigate={handleNavigate}
         onOpenSearch={() => setShowSearchModal(true)}
         onOpenChat={() => setShowChatDrawer(true)}
         onOpenProviderOnboarding={() => setShowOnboardingModal(true)}
       />
 
       <main className="flex-grow pt-16 sm:pt-20 pb-20 lg:pb-12">
-        {activeView === 'home' && (
-          <HomePage
-            onSelectKaarigar={handleSelectKaarigar}
-            onBookKaarigar={handleBookNow}
-            onNavigate={setActiveView}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                onSelectKaarigar={handleSelectKaarigar}
+                onBookKaarigar={handleBookNow}
+                onNavigate={handleNavigate}
+              />
+            }
           />
-        )}
-
-        {(activeView === 'map' || activeView === 'explore') && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-            <SectorMap
-              providers={allProviders}
-              onSelectProvider={handleSelectKaarigar}
-              onBookNow={handleBookNow}
-            />
-          </div>
-        )}
-
-        {activeView === 'ai_triage' && (
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
-            <AiDiagnosticWidget onSelectKaarigar={handleSelectKaarigar} />
-          </div>
-        )}
-
-        {activeView === 'profile' && (
-          <KaarigarProfilePage
-            providerId={selectedProviderId}
-            onBookNow={handleBookNow}
+          <Route
+            path="/explore"
+            element={
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+                <SectorMap
+                  providers={allProviders}
+                  onSelectProvider={handleSelectKaarigar}
+                  onBookNow={handleBookNow}
+                />
+              </div>
+            }
           />
-        )}
+          <Route path="/how-it-works" element={<HowItWorksPage onNavigate={handleNavigate} />} />
+          <Route
+            path="/ai-triage"
+            element={
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
+                <AiDiagnosticWidget onSelectKaarigar={handleSelectKaarigar} />
+              </div>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <KaarigarProfilePage
+                providerId={selectedProviderId}
+                onBookNow={handleBookNow}
+              />
+            }
+          />
+          <Route
+            path="/tracking"
+            element={
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+                <OrderTracker
+                  request={activeRequest}
+                  onUpdateStatus={(status) => {
+                    bookingService.updateStatus(activeRequest.id, status).then((updated) => {
+                      if (updated) setActiveRequest({ ...updated });
+                    });
+                  }}
+                />
+              </div>
+            }
+          />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route
+            path="/saved"
+            element={
+              <SavedProvidersPage
+                onSelectKaarigar={handleSelectKaarigar}
+                onBookKaarigar={handleBookNow}
+              />
+            }
+          />
 
-        {(activeView === 'tracking' || activeView === 'requests' || activeView === 'provider_requests' || activeView === 'provider_jobs') && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-            <OrderTracker
-              request={activeRequest}
-              onUpdateStatus={(status) => {
-                bookingService.updateStatus(activeRequest.id, status).then((updated) => {
-                  if (updated) setActiveRequest({ ...updated });
-                });
-              }}
-            />
-          </div>
-        )}
+          {/* Provider Routes */}
+          <Route path="/provider" element={<ProviderDashboardPage activeTab="provider" />} />
+          <Route path="/provider/requests" element={<ProviderDashboardPage activeTab="provider_requests" />} />
+          <Route path="/provider/jobs" element={<ProviderDashboardPage activeTab="provider_jobs" />} />
+          <Route path="/provider/earnings" element={<ProviderDashboardPage activeTab="provider_earnings" />} />
 
-        {(activeView === 'provider' || activeView === 'provider_earnings') && <ProviderDashboardPage />}
-
-        {(activeView === 'admin' || activeView.startsWith('admin_')) && <AdminDashboardPage />}
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminDashboardPage activeTab="admin" />} />
+          <Route path="/admin/users" element={<AdminDashboardPage activeTab="admin_users" />} />
+          <Route path="/admin/providers" element={<AdminDashboardPage activeTab="admin_providers" />} />
+          <Route path="/admin/verification" element={<AdminDashboardPage activeTab="admin_verification" />} />
+          <Route path="/admin/requests" element={<AdminDashboardPage activeTab="admin_requests" />} />
+          <Route path="/admin/categories" element={<AdminDashboardPage activeTab="admin_categories" />} />
+          <Route path="/admin/reviews" element={<AdminDashboardPage activeTab="admin_reviews" />} />
+          <Route path="/admin/reports" element={<AdminDashboardPage activeTab="admin_reports" />} />
+        </Routes>
       </main>
 
-      <Footer onNavigate={setActiveView} />
-      <MobileNav activeView={activeView} onNavigate={setActiveView} />
+      <Footer onNavigate={handleNavigate} />
+      <MobileNav
+        activeView={activeView}
+        onNavigate={handleNavigate}
+        onOpenChat={() => setShowChatDrawer(true)}
+      />
 
-      {/* Global Interactive Search Modal (Cmd+K / Ctrl+K) */}
+      {/* Global Interactive Search Modal */}
       {showSearchModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 px-4 animate-in fade-in duration-150">
           <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-2xl max-w-2xl w-full space-y-4">
@@ -158,7 +258,6 @@ const MainAppContent: React.FC = () => {
               </button>
             </div>
 
-            {/* Live Search Input */}
             <div className="flex items-center gap-3 px-4 py-3 bg-slate-100 rounded-2xl border border-slate-200">
               <Search className="w-5 h-5 text-slate-400 shrink-0" />
               <input
@@ -171,7 +270,6 @@ const MainAppContent: React.FC = () => {
               />
             </div>
 
-            {/* Search Suggestions & Results */}
             <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
               <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider px-1">
                 {searchQuery ? `Matching Results (${filteredProviders.length})` : 'Popular Searches'}
@@ -207,7 +305,6 @@ const MainAppContent: React.FC = () => {
               )}
             </div>
 
-            {/* Modal Footer Keybind Info */}
             <div className="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-100 pt-3 font-medium">
               <span>Press <kbd className="px-1.5 py-0.5 bg-slate-100 rounded border border-slate-200 font-mono text-slate-600">ESC</kbd> to close</span>
               <span className="text-[#004331] font-bold">Press <kbd className="px-1.5 py-0.5 bg-slate-100 rounded border border-slate-200 font-mono text-slate-600">⌘K</kbd> anytime</span>
@@ -243,9 +340,15 @@ const MainAppContent: React.FC = () => {
 
 export function App() {
   return (
-    <AuthProvider>
-      <MainAppContent />
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <LanguageProvider>
+          <ToastProvider>
+            <AppRoutes />
+          </ToastProvider>
+        </LanguageProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

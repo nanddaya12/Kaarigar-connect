@@ -1,4 +1,5 @@
 import { ProviderProfile, ServiceCategory } from '../types/database.types';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 export const mockCategories: ServiceCategory[] = [
   { id: 'c1', name: 'Electrician & UPS', slug: 'electrical', description: 'Inverter AC wiring, breaker box, UPS backup, 3-phase motor', icon: 'bolt' },
@@ -19,12 +20,15 @@ export const mockProviders: ProviderProfile[] = [
     experience_years: 12,
     verification_status: 'verified',
     availability_status: 'online',
+    is_available: true,
+    locality: 'Latifabad Unit 6',
     service_area: 'Latifabad Unit 6',
     latitude: 25.3670,
     longitude: 68.3680,
     starting_price: 500,
     hourly_rate: 800,
     response_time: '18 Mins',
+    verified: true,
     cnic_verified: true,
     guild_badge: 'SD-8821',
     guild_level: 'Master Craftsman',
@@ -50,12 +54,15 @@ export const mockProviders: ProviderProfile[] = [
     experience_years: 15,
     verification_status: 'verified',
     availability_status: 'online',
+    is_available: true,
+    locality: 'Qasimabad Phase 1',
     service_area: 'Qasimabad Phase 1',
     latitude: 25.3920,
     longitude: 68.3410,
     starting_price: 600,
     hourly_rate: 1000,
     response_time: '25 Mins',
+    verified: true,
     cnic_verified: true,
     guild_badge: 'SD-9102',
     guild_level: 'Senior Master',
@@ -80,12 +87,15 @@ export const mockProviders: ProviderProfile[] = [
     experience_years: 9,
     verification_status: 'verified',
     availability_status: 'online',
+    is_available: true,
+    locality: 'Saddar Bazaar',
     service_area: 'Saddar Bazaar',
     latitude: 25.3980,
     longitude: 68.3560,
     starting_price: 400,
     hourly_rate: 700,
     response_time: '15 Mins',
+    verified: true,
     cnic_verified: true,
     guild_badge: 'SD-7719',
     guild_level: 'Certified Artisan',
@@ -104,10 +114,31 @@ export const mockProviders: ProviderProfile[] = [
 
 export const marketplaceService = {
   getCategories: async (): Promise<ServiceCategory[]> => {
+    if (isSupabaseConfigured()) {
+      try {
+        const { data, error } = await supabase.from('service_categories').select('*');
+        if (!error && data && data.length > 0) return data;
+      } catch (err) {
+        console.warn('Supabase categories fetch error, using mock data:', err);
+      }
+    }
     return mockCategories;
   },
 
   getProviders: async (categorySlug?: string, searchQuery?: string, locality?: string): Promise<ProviderProfile[]> => {
+    if (isSupabaseConfigured()) {
+      try {
+        let query = supabase.from('provider_profiles').select('*');
+        if (categorySlug && categorySlug !== 'all') {
+          query = query.eq('category', categorySlug);
+        }
+        const { data, error } = await query;
+        if (!error && data && data.length > 0) return data;
+      } catch (err) {
+        console.warn('Supabase providers fetch error, using mock data:', err);
+      }
+    }
+
     return mockProviders.filter(p => {
       const matchCat = !categorySlug || categorySlug === 'all' || p.category === categorySlug;
       const q = (searchQuery || '').toLowerCase();
@@ -121,6 +152,14 @@ export const marketplaceService = {
   },
 
   getProviderById: async (id: string): Promise<ProviderProfile | null> => {
+    if (isSupabaseConfigured()) {
+      try {
+        const { data, error } = await supabase.from('provider_profiles').select('*').eq('id', id).single();
+        if (!error && data) return data;
+      } catch (err) {
+        console.warn('Supabase provider fetch error, using fallback:', err);
+      }
+    }
     return mockProviders.find(p => p.id === id) || mockProviders[0];
   }
 };

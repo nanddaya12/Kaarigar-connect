@@ -17,6 +17,8 @@ interface AuthContextType {
     phone: string;
     avatar: string;
   };
+  signOut: () => void;
+  isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,9 +28,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [locality, setLocality] = useState<string>('Latifabad Unit 6');
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
   const [savedProviderIds, setSavedProviderIds] = useState<string[]>(['kaarigar-1']);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
 
-  const [user] = useState({
-    name: 'Dayanand (Customer)',
+  const [user, setUser] = useState({
+    name: 'Dayanand Sharma',
     email: 'nanddaya12@github.com',
     phone: '0300-1234567',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'
@@ -46,6 +49,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const isProviderSaved = (id: string) => savedProviderIds.includes(id);
 
+  const signOut = () => {
+    setRole('customer');
+    setIsAuthenticated(false);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -59,6 +67,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         toggleSaveProvider,
         isProviderSaved,
         user,
+        signOut,
+        isAuthenticated,
       }}
     >
       {children}
