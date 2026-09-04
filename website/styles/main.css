@@ -1,0 +1,67 @@
+/* KaarigarConnect - Design System CSS Token Sheet (Artisan Guild Spec) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+:root {
+    --primary: #0D5C46;
+    --on-primary: #FFFFFF;
+    --primary-container: #0D5C46;
+    --on-primary-container: #8CD2B6;
+    --secondary: #0F766E;
+    --on-secondary: #FFFFFF;
+    --tertiary: #D97706;
+    --on-tertiary: #FFFFFF;
+    --tertiary-container: #7D4200;
+    --surface: #FBFBF9;
+    --surface-container-lowest: #FFFFFF;
+    --surface-container-low: #EFF4FF;
+    --surface-container: #E6EEFF;
+    --on-surface: #1F2937;
+    --on-surface-variant: #4B5563;
+    --outline: #6F7974;
+    --outline-variant: #E5E7EB;
+}
+
+body {
+    background-color: var(--surface);
+    color: var(--on-surface);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-headline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Micro Animations */
+.animate-fade-in {
+    animation: fadeIn 0.25s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.glass-header {
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+}

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-on-surface": "#eaf1ff", "primary": "#004331", "on-surface": "#121c2a", "on-primary-container": "#8cd2b6", "on-secondary-container": "#006f67", "surface-bright": "#f8f9ff", "on-tertiary-fixed": "#2f1500", "tertiary-container": "#7d4200", "surface-dim": "#d0dbed", "on-secondary": "#ffffff", "surface-container": "#e6eeff", "surface": "#f8f9ff", "primary-fixed-dim": "#8ed5b9", "surface-container-lowest": "#ffffff", "outline": "#6f7974", "secondary-fixed": "#9cf2e8", "surface-container-low": "#eff4ff", "on-error-container": "#93000a", "on-tertiary-container": "#ffb477", "secondary": "#006a63", "on-tertiary-fixed-variant": "#6e3900", "error-container": "#ffdad6", "surface-tint": "#226a53", "inverse-primary": "#8ed5b9", "on-primary-fixed-variant": "#00513d", "secondary-fixed-dim": "#80d5cb", "surface-variant": "#d9e3f6", "tertiary-fixed": "#ffdcc3", "primary-container": "#0d5c46", "outline-variant": "#bfc9c2", "on-secondary-fixed": "#00201d", "primary-fixed": "#aaf1d4", "secondary-container": "#99efe5", "on-primary": "#ffffff", "on-tertiary": "#ffffff", "on-error": "#ffffff", "on-secondary-fixed-variant": "#00504a", "surface-container-highest": "#d9e3f6", "on-background": "#121c2a", "inverse-surface": "#27313f", "tertiary-fixed-dim": "#ffb77d", "background": "#f8f9ff", "tertiary": "#5c2f00", "surface-container-high": "#dee9fc", "error": "#ba1a1a", "on-surface-variant": "#3f4944", "on-primary-fixed": "#002117" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "container-max": "75rem", "space-md": "1rem", "space-3xl": "4.5rem", "space-xs": "0.5rem", "gutter-desktop": "1.5rem", "space-2xl": "3rem", "space-sm": "0.75rem", "space-lg": "1.5rem", "space-2xs": "0.25rem", "gutter-mobile": "1rem", "space-xl": "2rem" }, "fontFamily": { "body-lg": ["Inter"], "headline-xl": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-md": ["Inter"], "label-lg": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-md": ["Inter"], "headline-xl-mobile": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"] }, "fontSize": { "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="KaarigarConnect Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VHqjv-VscEtxIlOXAtC5JHcHuLtOEwZFUJXKTX14DVxHIyJXlec5cTx5kfnACK5nnLyl7_2OXCUllSRLGXNmdZ1CCUu_i_6y7K5Jzn4UzDRZ_1IsRQCacXJziSvQ0h4AokuMy8md5NhRdgzrJnEF2P6kJQmll9TXBbHrctVl6TwoCbiH5GKpaQEzNveAc4HThnxY_XTrETnsJ8APkSxW-UR7VRFPBalysHaP76CMjMtHfxuAMqqRxi8q9T"/><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Kaarigar Detail</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Emergency Support" class="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[24px]">help</span></button><div class="flex items-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2-dJuV9_nmLFriK0mm2QZIR_t9aNpw_w6_rKnF4VM5wyJ1dcvQaOvU-PvMnS5cKFRLP-2JA4SG1X0Cl_QNElZH__gVVapr6rm9jVpCrrYxZmccsxcfaHUKvJPWxS9PczIw5fPkHMdv7_E5D-xZ5wLEVkAcyjFYVsFgN8-f4u8x4P5ndRE9zKvm8YvDARPmA7hGkQzAocYwjUOjhCAf2qu2xWhoSiTnsxR-oScYOtlc9P3gWsMfDHm9A"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-28">
+<!-- Profile Header Hero Banner -->
+<div class="relative w-full h-44 bg-surface-container-high overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="Professional workshop environment in Hyderabad Sindh with technical HVAC tools, copper manifolds, diagnostic gauges, and organized tool chest bathed in warm ambient morning sunlight, cinematic documentary photography" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBIjJErZPc11lzcej6VfQnDpfqVf4TtFeVYEnm-NIW1grfk1v3XmXlPscBhr7Pm2QESBP87nhxKyK6Xac517sdNGvXcRJtsLEwsP7pRy3DnKzpeyELpQfoMsPwcqaIWtbDLRR4gQ05bQIL0ZtqzNvd1zXxS2j8QKFPoIyjRb8efn9svSDQoUrdkJIV8IrzwcgG_I9KG2gkLzwKRzIr1R4a8rrNNciWvk4nfWM-PEn0DvY5JhXURAO7NGw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-on-surface/30 to-transparent"></div>
+<!-- Hyderabad Guild Seal Tag -->
+<div class="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]">verified</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold tracking-wide uppercase">Sindh Guild Certified</span>
+</div>
+<div class="absolute bottom-3 left-4 flex items-center gap-2 text-inverse-on-surface">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">location_on</span>
+<span class="font-label-md text-label-md drop-shadow">Qasimabad &amp; Latifabad Hub, Hyderabad</span>
+</div>
+</div>
+<!-- Profile Identity Card -->
+<div class="relative px-gutter-mobile -mt-10">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-md">
+<div class="flex items-start gap-3.5">
+<!-- Avatar with Emerald Highlight Ring -->
+<div class="relative shrink-0">
+<div class="w-20 h-20 rounded-full p-0.5 bg-gradient-to-tr from-primary via-primary-fixed to-secondary">
+<img class="w-full h-full rounded-full object-cover" data-alt="Warm and respectful headshot portrait of Imran Ali, a 36-year-old Pakistani HVAC master technician in a neat dark teal work polo shirt, smiling confidently with deep expertise and approachable warmth, soft natural daylight studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbsPGS0NXPh9Ta9GeKhgNzAjOuKqjSbWSRyS6fbX4HC8p_D_h7s04g1u6T4GOYejcjZ78hte7kQHJazyRWkiqbzq7_lbGdGV6q_mvh9-CWNv8fT5_8Pbzt7CKXYdBkTpDdWi-m_VK3BBPHLkuO9FwZOdONHn1sq2pg_URX3LE-ockDQFCvLsScRQuFdQPKGgnJ7-ux_hejHnNWobrvGxbYlRBdaOdDYKRhVdOZB7zCvbKO1Gf_Ql6cGA"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-[15px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<!-- Name & Headline -->
+<div class="flex-1 min-w-0 pt-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Imran Ali</h2>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Ustad</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Master AC, Chiller &amp; Refrigerator Technician</p>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">4.9</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">(128 verified reviews)</span>
+</div>
+</div>
+</div>
+<!-- Trust Badges Bar -->
+<div class="grid grid-cols-3 gap-2 mt-4 pt-3 bg-surface-container-low rounded-lg p-2.5">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0" style="font-variation-settings: 'FILL' 1;">id_card</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium truncate">NADRA CNIC</span>
+</div>
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0" style="font-variation-settings: 'FILL' 1;">local_police</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium truncate">Clearance '24</span>
+</div>
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-tertiary text-[18px] shrink-0" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium truncate">Top Artisan</span>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-3 gap-2 mt-3 text-center">
+<div class="p-2 rounded-lg bg-surface">
+<div class="font-headline-sm text-headline-sm text-primary font-bold">8+ Yrs</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Hyderabad</div>
+</div>
+<div class="p-2 rounded-lg bg-surface">
+<div class="font-headline-sm text-headline-sm text-primary font-bold">640+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Jobs Done</div>
+</div>
+<div class="p-2 rounded-lg bg-surface">
+<div class="font-headline-sm text-headline-sm text-secondary font-bold">98%</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">~22m Arrival</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Hyderabad Sector Badge Ticker -->
+<div class="px-gutter-mobile mt-4">
+<div class="bg-surface-container-high rounded-xl p-3 flex items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></div>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Currently Available in Qasimabad Phase 1 &amp; Saddar</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-primary font-bold shadow-sm">Active Now</span>
+</div>
+</div>
+<!-- Interactive Segmented Navigation -->
+<div class="px-gutter-mobile mt-4">
+<div class="flex items-center p-1 bg-surface-container rounded-xl overflow-x-auto gap-1">
+<button class="tab-pill flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-center transition-all duration-200 bg-primary text-on-primary font-semibold shadow-sm" id="tab-btn-services" onclick="switchTab('services')">
+        Services &amp; Rates
+      </button>
+<button class="tab-pill flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-center transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-btn-about" onclick="switchTab('about')">
+        About
+      </button>
+<button class="tab-pill flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-center transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-btn-portfolio" onclick="switchTab('portfolio')">
+        Proof
+      </button>
+<button class="tab-pill flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-center transition-all duration-200 text-on-surface-variant hover:text-on-surface" id="tab-btn-reviews" onclick="switchTab('reviews')">
+        Reviews
+      </button>
+</div>
+</div>
+<!-- TAB 1: Services & Standard Rates -->
+<div class="tab-pane flex flex-col px-gutter-mobile mt-4 space-y-3" id="tab-content-services">
+<!-- Transparency Banner -->
+<div class="p-3.5 rounded-xl bg-secondary-container/40 flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px] shrink-0 mt-0.5">price_check</span>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-secondary-container font-bold">Standard KaarigarConnect Tariff</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Transparent PKR pricing without hidden gate fees. Diagnostic visit adjusted if job accepted.</p>
+</div>
+</div>
+<!-- Service Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">ac_unit</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Split AC General Servicing</h4>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">High-pressure jet wash, blower cleaning, chemical filter rinse, and drain line unclogging.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">~45 mins</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container/60 font-label-sm text-label-sm text-on-secondary-container">15-day guarantee</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Rate</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 1,500</span>
+<button class="mt-2 block w-full py-1.5 px-3 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary transition-colors" onclick="prefillBooking('Split AC General Servicing', '1500')">
+            Select
+          </button>
+</div>
+</div>
+</div>
+<!-- Service Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">mode_fan</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">AC Gas Charging / Refill</h4>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Full vacuum test, leak detection, and original R410A / R32 pure refrigerant charge.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">American Spec</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container/60 font-label-sm text-label-sm text-on-secondary-container">Gauge Verified</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Rate</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 3,800</span>
+<button class="mt-2 block w-full py-1.5 px-3 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary transition-colors" onclick="prefillBooking('AC Gas Charging / Refill', '3800')">
+            Select
+          </button>
+</div>
+</div>
+</div>
+<!-- Service Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">bolt</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Compressor &amp; Capacitor Repair</h4>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Inverter outdoor diagnostics, capacitor replacement, PCB amp test, and contactor repair.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">All Brands</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">+ Original Parts</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Labor Rate</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 1,800</span>
+<button class="mt-2 block w-full py-1.5 px-3 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary transition-colors" onclick="prefillBooking('Compressor &amp; Capacitor Repair', '1800')">
+            Select
+          </button>
+</div>
+</div>
+</div>
+<!-- Service Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">kitchen</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Refrigerator Leakage &amp; Thermostat</h4>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cooling coil leak braze repair, defroster timer switch, digital thermostat calibration.</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">Deep Freezers too</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Rate</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 2,200</span>
+<button class="mt-2 block w-full py-1.5 px-3 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary transition-colors" onclick="prefillBooking('Refrigerator Leakage &amp; Thermostat', '2200')">
+            Select
+          </button>
+</div>
+</div>
+</div>
+<!-- Emergency Addon Box -->
+<div class="p-3.5 rounded-xl bg-tertiary-fixed/30 flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">alarm_on</span>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-tertiary-fixed font-bold">Emergency Express Triage (45 mins)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Immediate dispatch priority across Hyderabad</p>
+</div>
+</div>
+<span class="font-label-lg text-label-lg text-tertiary font-bold shrink-0">+ Rs. 500</span>
+</div>
+</div>
+<!-- TAB 2: About & Credentials -->
+<div class="tab-pane hidden flex-col px-gutter-mobile mt-4 space-y-3" id="tab-content-about">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Master Technician Bio</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed">
+        Serving Hyderabad residents across Qasimabad, Latifabad, and Citizen Colony since 2016. Specialized in inverter split AC systems (Dawlance, Gree, Haier, Kenwood, Pel). All diagnostic tests and brazing repair work are backed by an unconditional 15-day KaarigarConnect warranty.
+      </p>
+<div class="grid grid-cols-2 gap-3 mt-4 pt-3 bg-surface-container-low rounded-lg p-3">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Work Hours</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Mon – Sun: 8:30 AM – 9:00 PM</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Coverage Radius</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">15 km within Hyderabad</span>
+</div>
+</div>
+</div>
+<!-- Verification Dossier -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Verified Credentials</h3>
+<div class="mt-3 space-y-2.5">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-surface">
+<span class="material-symbols-outlined text-primary text-[24px]">verified_user</span>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-on-surface font-semibold block">CNIC 41303-*******-1 Biometrically Authenticated</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Validated with NADRA records</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg bg-surface">
+<span class="material-symbols-outlined text-primary text-[24px]">workspace_premium</span>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Sindh Board of Technical Education (SBTE)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Diploma in Refrigeration &amp; Air Conditioning</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center gap-3 p-2 rounded-lg bg-surface">
+<span class="material-symbols-outlined text-primary text-[24px]">shield</span>
+<div class="flex-1">
+<span class="font-label-md text-label-md text-on-surface font-semibold block">Sindh Police Security Record Cleared</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Annual verification refreshed March 2024</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Location Coverage Map Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Service Coverage Area</h3>
+<span class="font-label-sm text-label-sm text-primary font-semibold">15 km Radius</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Latifabad (Units 1-12), Qasimabad Phase 1-3, Citizen Colony, Saddar, Auto Bhan, Thandi Sarak.</p>
+<div class="w-full h-44 bg-cover bg-center rounded-lg shadow-inner" data-location="Hyderabad, Sindh, Pakistan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUvrzfT-ZdfmFVgNYIF8Sq67BYqmxxt4ulO8QdPMkbL3yLlwkNdR-c9iU6kHyA-3sueHp57Kw18hxOr11SMICKDPhoj8DEhWOfhFkTmXFR0OMYKq_yFNPOdFPl2V8marGv8JMr1B9Vuh3IhO9dzcrYKynq4NdpAApmtznWEU0NOzL9MgVQFvYJl8W1P_P8mEiE3RHfKf4SN5_bo0PLKKu3f1s_6c2XdNCQY1X1GDHpH-Z-dpCgjWC1wQ')"></div>
+</div>
+</div>
+<!-- TAB 3: Portfolio & Proof -->
+<div class="tab-pane hidden flex-col px-gutter-mobile mt-4 space-y-3" id="tab-content-portfolio">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Work Proof &amp; On-Site Photos</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Real job photos</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-3">Documented repairs across residential homes and clinics in Hyderabad.</p>
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Photo Item 1 -->
+<div class="rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-32 object-cover" data-alt="Close-up of technician hands using a digital multimeter and manifold gauge set on an opened Gree inverter AC outdoor unit condenser in Latifabad Hyderabad, clean professional workmanship" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeikKRZemOH31e-HSOieGanIVe5GScT9yC00z_UzZp-uTIe1fLSQksenUfk7HWF6r_hY7UOJczJCCI-z8NGylT72G4yaHyYd-coZZvtUbPiLg5mBHbs9XdSPQTaJNna9vJtMhDl5adjcwVyliauc3ZEcajkxSQT-XP5gCva1B3XYiUZNrjDcB-h5Q7ycEmcOHZnGGd-XK2LTlzZv6NxWaKKKeoGJJY3lkw4u_Mwb971SCxSRxY7DdUDg"/>
+<div class="p-2 bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block truncate">Inverter PCB Diag</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Auto Bhan Rd</span>
+</div>
+</div>
+<!-- Photo Item 2 -->
+<div class="rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-32 object-cover" data-alt="Hydro jet pressure washing process on an indoor split AC coil with clear splash protection cover attached and sparkling clean cooling fins, bright indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbdCeenyuluAgl1ZbenWfbLo8HkCV7827VCnbybVlW0IsuHRJfpcdo92OgHoqCpoC26QazGdC4hGMqAf_enxd3r5-1FEMN9zV1PbB7L2nwUtEQ0EnpIMwTCmSA_HbYU31UDuwQWAqrUJfmev7DvutNuG3IVpNVV5O2Ru2GhpDaYMx1SLGA0oqOFQC6cwO042Nw9HYnsXy6QdYILRrHEEa2q0r9qh5LfNz__TZWhlAVjOtAUUbnpwaBmg"/>
+<div class="p-2 bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block truncate">Jet Wash Deep Clean</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Qasimabad Phase 2</span>
+</div>
+</div>
+<!-- Photo Item 3 -->
+<div class="rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-32 object-cover" data-alt="Precision copper pipe brazing and oxy-acetylene torch weld on a commercial refrigerator refrigeration condenser loop, technical focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn83Ll2eks__-3t15xKdqCrPiQf3xpgJPGQuDBOKZKO2lLN_LIlKZTUVGv1m5fKYOdMbJ1YHV9ffkkjXpnL7RtJg9Kbwgx9R0doz9w-o3ngWHX4UVhikqpmhDVLHKsRTMQNDmrVPEHIug6GVYQMApj3m9XEIbYuoc1Mo6MNOEz8W-69_1smWqfc6rQOjcEMExHzt41anskJc2FZHCStVdEGzZZGwD5lT4V3ktw6VV4o6_cw4oRCD7OhA"/>
+<div class="p-2 bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block truncate">Copper Braze Repair</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Citizen Colony</span>
+</div>
+</div>
+<!-- Photo Item 4 -->
+<div class="rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-32 object-cover" data-alt="Master HVAC technician checking digital digital thermometer showing 16 degrees Celsius output air vent from freshly recharged split AC in residential living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhXKSVl_G8HiU_wCFJG0wv9ZZbe4M9UUMHavscy2m0p3C-1q6CQKsqs0-PdZn3O32yhH4y97Y7twDmgPFbl4m787a-CLqqBvi__EJ52pPlLPyilphPfYTx-UJzcp98HmGQpoi-KvMM1JO0Xbw7rKFJWf9ThXInDtH9iVfUOqmpan1d00cITJIZt9_5tDRZ1vc86YBR9ZME60QBEaIRrRCuJvNrPjP_XMyUJMqAgNJPuGzliIaSjxs-zg"/>
+<div class="p-2 bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold block truncate">R410A Refill 16°C Test</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Latifabad Unit 7</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 4: Customer Reviews -->
+<div class="tab-pane hidden flex-col px-gutter-mobile mt-4 space-y-3" id="tab-content-reviews">
+<!-- Review Summary Stat Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-4">
+<div class="text-center shrink-0 pr-3">
+<span class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-bold leading-none">4.9</span>
+<div class="flex items-center justify-center gap-0.5 text-tertiary mt-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-1">128 ratings</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">5★</span>
+<div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[94%]"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">94%</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">4★</span>
+<div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary-fixed-dim rounded-full w-[5%]"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5%</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-4">3★</span>
+<div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-surface-dim rounded-full w-[1%]"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Review 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold font-headline-sm">
+            AF
+          </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Asad Farooq</span>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">Verified Hire</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Auto Bhan Rd • Yesterday</span>
+</div>
+</div>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface mt-2.5">
+        "Imran bhai arrived in 20 mins. Fixed the Gree inverter capacitor right away without overcharging for gas. Highly recommended for honest pricing in Hyderabad!"
+      </p>
+<div class="mt-2 text-primary font-label-sm text-label-sm">
+        Service: Compressor &amp; Capacitor Repair
+      </div>
+</div>
+<!-- Review 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold font-headline-sm">
+            DM
+          </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Dr. Mahnoor</span>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">Verified Hire</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Latifabad Unit 2 • 3 days ago</span>
+</div>
+</div>
+<div class="flex text-tertiary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface mt-2.5">
+        "Professional, courteous, and carried his own shoe covers and cleaning mat. Serviced both inverter units without leaving a drop of water on our bedroom floor. Will book again."
+      </p>
+<div class="mt-2 text-primary font-label-sm text-label-sm">
+        Service: Split AC General Servicing (Jet Wash)
+      </div>
+</div>
+</div>
+<!-- Bottom Sticky Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-surface-container-lowest/95 backdrop-blur-lg shadow-xl px-gutter-mobile py-3 flex items-center gap-2 max-w-[75rem] mx-auto">
+<!-- Call Directly -->
+<a aria-label="Direct Telephone Call" class="min-h-[48px] min-w-[48px] rounded-xl bg-surface-container text-on-surface flex items-center justify-center transition-transform active:scale-95" href="tel:+923000000000">
+<span class="material-symbols-outlined text-[22px]">phone_enabled</span>
+</a>
+<!-- WhatsApp / Message -->
+<button aria-label="Chat via WhatsApp" class="min-h-[48px] px-3 rounded-xl bg-surface-container text-on-surface flex items-center justify-center gap-1.5 font-label-md text-label-md font-semibold transition-transform active:scale-95" onclick="triggerWhatsApp()">
+<span class="material-symbols-outlined text-[20px] text-secondary">chat</span>
+<span>Chat</span>
+</button>
+<!-- Request Service Primary Emerald Button -->
+<button class="flex-1 min-h-[48px] px-4 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 shadow-md hover:bg-primary-container transition-all active:scale-[0.98]" onclick="openRequestModal()">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>Request Service</span>
+</button>
+</div>
+<!-- Booking / Service Request Drawer Backdrop & Modal -->
+<div class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden flex items-end justify-center transition-opacity duration-300" id="booking-modal-overlay">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-t-2xl p-space-lg shadow-2xl flex flex-col max-h-[85vh] overflow-y-auto transform translate-y-full transition-transform duration-300" id="booking-modal-panel">
+<!-- Modal Header -->
+<div class="flex items-center justify-between pb-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">build</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Book Imran Ali</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Master AC &amp; Refrigerator Technician</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface" onclick="closeRequestModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Step Indicator -->
+<div class="flex items-center justify-between my-3 px-2 py-2 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm font-semibold">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center text-[11px]">1</span>
+<span>Service &amp; Time</span>
+</div>
+<div class="w-8 h-0.5 bg-surface-variant"></div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-5 h-5 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-[11px]">2</span>
+<span>Address &amp; Confirm</span>
+</div>
+</div>
+<!-- Form Inputs -->
+<form class="space-y-3.5 mt-2" id="service-request-form" onsubmit="handleFormSubmit(event)">
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Select Service Type</label>
+<select class="w-full min-h-[44px] px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary" id="modal-service-select">
+<option value="Split AC General Servicing">Split AC General Servicing — Rs. 1,500</option>
+<option value="AC Gas Charging / Refill">AC Gas Charging / Refill (R410A) — Rs. 3,800</option>
+<option value="Compressor &amp; Capacitor Repair">Compressor &amp; Capacitor Repair — Rs. 1,800</option>
+<option value="Refrigerator Gas Leakage &amp; Thermostat">Refrigerator Gas Leakage &amp; Thermostat — Rs. 2,200</option>
+<option value="Other Diagnostics">Diagnostic Inspection Visit — Rs. 500</option>
+</select>
+</div>
+<!-- AC Brand selector -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Appliance Brand</label>
+<div class="grid grid-cols-4 gap-1.5">
+<label class="flex items-center justify-center p-2 rounded-lg bg-surface text-on-surface font-label-sm text-label-sm text-center cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input checked="" class="sr-only" name="appliance_brand" type="radio" value="Gree"/>
+<span>Gree</span>
+</label>
+<label class="flex items-center justify-center p-2 rounded-lg bg-surface text-on-surface font-label-sm text-label-sm text-center cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="appliance_brand" type="radio" value="Dawlance"/>
+<span>Dawlance</span>
+</label>
+<label class="flex items-center justify-center p-2 rounded-lg bg-surface text-on-surface font-label-sm text-label-sm text-center cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="appliance_brand" type="radio" value="Haier"/>
+<span>Haier</span>
+</label>
+<label class="flex items-center justify-center p-2 rounded-lg bg-surface text-on-surface font-label-sm text-label-sm text-center cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="appliance_brand" type="radio" value="Other"/>
+<span>Other</span>
+</label>
+</div>
+</div>
+<!-- Preferred Slot -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Preferred Time Today</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="p-2 rounded-lg bg-surface text-on-surface font-label-sm text-label-sm text-center cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input checked="" class="sr-only" name="time_slot" type="radio" value="Earliest Available"/>
+<span class="block font-bold">Now (~25m)</span>
+<span class="text-[10px] opacity-80">Express Triage</span>
+</label>
+<label class="p-2 rounded-lg bg-surface text-on-surface font-label-sm text-label-sm text-center cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="time_slot" type="radio" value="Afternoon"/>
+<span class="block font-bold">2 PM – 5 PM</span>
+<span class="text-[10px] opacity-80">Today</span>
+</label>
+<label class="p-2 rounded-lg bg-surface text-on-surface font-label-sm text-label-sm text-center cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="time_slot" type="radio" value="Evening"/>
+<span class="block font-bold">6 PM – 9 PM</span>
+<span class="text-[10px] opacity-80">Today</span>
+</label>
+</div>
+</div>
+<!-- Neighborhood Selector -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Your Hyderabad Sector</label>
+<div class="flex gap-2 overflow-x-auto pb-1">
+<label class="shrink-0 px-3 py-1.5 rounded-full bg-surface text-on-surface font-label-sm text-label-sm cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input checked="" class="sr-only" name="sector" type="radio" value="Qasimabad"/>
+<span>Qasimabad</span>
+</label>
+<label class="shrink-0 px-3 py-1.5 rounded-full bg-surface text-on-surface font-label-sm text-label-sm cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="sector" type="radio" value="Latifabad Unit 1-6"/>
+<span>Latifabad 1-6</span>
+</label>
+<label class="shrink-0 px-3 py-1.5 rounded-full bg-surface text-on-surface font-label-sm text-label-sm cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="sector" type="radio" value="Citizen Colony"/>
+<span>Citizen Colony</span>
+</label>
+<label class="shrink-0 px-3 py-1.5 rounded-full bg-surface text-on-surface font-label-sm text-label-sm cursor-pointer has-[:checked]:bg-primary has-[:checked]:text-on-primary transition-colors">
+<input class="sr-only" name="sector" type="radio" value="Saddar / Cantt"/>
+<span>Saddar / Cantt</span>
+</label>
+</div>
+</div>
+<!-- Street address / landmark -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">House / Flat &amp; Landmark</label>
+<input class="w-full min-h-[44px] px-3 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g. Banglow 42-B, near Citizen Club" required="" type="text"/>
+</div>
+<!-- Phone contact -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Your Mobile Number</label>
+<div class="relative">
+<span class="absolute left-3 top-2.5 font-body-md text-body-md text-on-surface-variant">+92</span>
+<input class="w-full min-h-[44px] pl-12 pr-3 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="300 1234567" required="" type="tel"/>
+</div>
+</div>
+<!-- Confirmation Button -->
+<div class="pt-2">
+<button class="w-full min-h-[48px] rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-semibold shadow-md flex items-center justify-center gap-2 hover:bg-primary-container transition-transform active:scale-[0.98]" type="submit">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Confirm &amp; Dispatch Request</span>
+</button>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center mt-2">No advance deposit required. Pay Imran bhai after completion.</p>
+</div>
+</form>
+<!-- Confirmation Toast inside Drawer (hidden by default) -->
+<div class="hidden p-4 rounded-xl bg-secondary-container text-on-secondary-container mt-4 text-center" id="booking-confirmation-banner">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+<h4 class="font-headline-sm text-headline-sm font-bold mt-1">Request Sent to Imran Ali!</h4>
+<p class="font-body-sm text-body-sm mt-1">Ustad Imran is reviewing your slot. You will receive an SMS confirmation in ~2 minutes.</p>
+<button class="mt-3 px-4 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold" onclick="closeRequestModal()">Done</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function switchTab(tabKey) {
+    // Hide all panes
+    const panes = document.querySelectorAll('.tab-pane');
+    panes.forEach(p => p.classList.add('hidden'));
+
+    // Reset tab buttons styling
+    const buttons = document.querySelectorAll('.tab-pill');
+    buttons.forEach(btn => {
+      btn.className = 'tab-pill flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-center transition-all duration-200 text-on-surface-variant hover:text-on-surface';
+    });
+
+    // Show target pane
+    const targetPane = document.getElementById('tab-content-' + tabKey);
+    if (targetPane) {
+      targetPane.classList.remove('hidden');
+    }
+
+    // Highlight target button
+    const targetBtn = document.getElementById('tab-btn-' + tabKey);
+    if (targetBtn) {
+      targetBtn.className = 'tab-pill flex-1 py-2 px-3 rounded-lg font-label-md text-label-md text-center transition-all duration-200 bg-primary text-on-primary font-semibold shadow-sm';
+    }
+  }
+
+  function openRequestModal() {
+    const overlay = document.getElementById('booking-modal-overlay');
+    const panel = document.getElementById('booking-modal-panel');
+    overlay.classList.remove('hidden');
+    setTimeout(() => {
+      panel.classList.remove('translate-y-full');
+    }, 10);
+  }
+
+  function closeRequestModal() {
+    const overlay = document.getElementById('booking-modal-overlay');
+    const panel = document.getElementById('booking-modal-panel');
+    panel.classList.add('translate-y-full');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      const banner = document.getElementById('booking-confirmation-banner');
+      const form = document.getElementById('service-request-form');
+      if (banner) banner.classList.add('hidden');
+      if (form) form.classList.remove('hidden');
+    }, 250);
+  }
+
+  function prefillBooking(serviceName, rate) {
+    const select = document.getElementById('modal-service-select');
+    if (select) {
+      for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value.includes(serviceName) || select.options[i].text.includes(serviceName)) {
+          select.selectedIndex = i;
+          break;
+        }
+      }
+    }
+    openRequestModal();
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('service-request-form');
+    const banner = document.getElementById('booking-confirmation-banner');
+    if (form && banner) {
+      form.classList.add('hidden');
+      banner.classList.remove('hidden');
+    }
+  }
+
+  function triggerWhatsApp() {
+    const msg = encodeURIComponent("Assalam o Alaikum Imran Bhai, I saw your verified profile on KaarigarConnect Hyderabad. I need an AC diagnosis/repair.");
+    window.open("https://wa.me/923000000000?text=" + msg, "_blank");
+  }
+
+  // Close modal when clicking on overlay backdrop
+  document.getElementById('booking-modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeRequestModal();
+    }
+  });
+</script></main></body></html>

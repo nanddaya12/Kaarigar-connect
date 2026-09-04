@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>KaarigarConnect</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-surface-variant": "#3f4944", "primary-fixed": "#aaf1d4", "outline": "#6f7974", "on-error-container": "#93000a", "on-surface": "#121c2a", "tertiary-container": "#7d4200", "on-secondary-fixed": "#00201d", "secondary-fixed": "#9cf2e8", "on-background": "#121c2a", "surface-variant": "#d9e3f6", "on-primary-fixed-variant": "#00513d", "secondary-container": "#99efe5", "tertiary-fixed-dim": "#ffb77d", "on-primary-fixed": "#002117", "on-secondary": "#ffffff", "inverse-primary": "#8ed5b9", "primary": "#004331", "surface-container-high": "#dee9fc", "surface-container": "#e6eeff", "error": "#ba1a1a", "primary-container": "#0d5c46", "on-tertiary-fixed-variant": "#6e3900", "inverse-surface": "#27313f", "surface-container-low": "#eff4ff", "on-tertiary-container": "#ffb477", "on-primary": "#ffffff", "background": "#f8f9ff", "tertiary": "#5c2f00", "tertiary-fixed": "#ffdcc3", "inverse-on-surface": "#eaf1ff", "on-tertiary-fixed": "#2f1500", "surface-bright": "#f8f9ff", "surface-tint": "#226a53", "outline-variant": "#bfc9c2", "on-error": "#ffffff", "on-secondary-container": "#006f67", "secondary": "#006a63", "surface-dim": "#d0dbed", "on-primary-container": "#8cd2b6", "surface-container-lowest": "#ffffff", "error-container": "#ffdad6", "primary-fixed-dim": "#8ed5b9", "surface": "#f8f9ff", "on-secondary-fixed-variant": "#00504a", "on-tertiary": "#ffffff", "surface-container-highest": "#d9e3f6", "secondary-fixed-dim": "#80d5cb" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.75rem", "gutter-mobile": "1rem", "space-3xl": "4.5rem", "space-xs": "0.5rem", "space-2xs": "0.25rem", "gutter-desktop": "1.5rem", "container-max": "75rem", "space-md": "1rem", "space-2xl": "3rem", "space-xl": "2rem", "space-lg": "1.5rem" }, fontFamily: { "headline-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "headline-xl": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "body-md": ["Inter"], "body-sm": ["Inter"] }, fontSize: { "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}], "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "headline-xl-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "body-lg": ["17px", {"lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400"}], "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600"}], "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}], "headline-sm": ["18px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600"}], "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}], "body-md": ["15px", {"lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400"}], "body-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400"}] } } } };</script><style>@layer base { html, body { width: 100vw; margin: 0; padding: 0; } body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="Brand logo. - Primary color: #0d5c46
+- Font: plusJakartaSans
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Xbx6zVZGptiC9r1FuuImsm3YGiIPKcZN8hTiavYSbHPq9QbbHIyq3RXxdC56rFo4HF2r2R85F7pbmEmXHcbM_4r_vf7bprw5KgKrNCSRl29pUjtrScDx1nU1RT4gygpXe06n6RLL6yX649haVCAmdcuTLH5wll256zloUWHJm-odoEjgEQ7Ur9K4vi8hCD9pXH1SnEn5tYMqTnd58jpS3sUnZ79ytD1lMJXGqmiz7RZ4aixmTt-WCxoySC"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-1"><span class="font-headline-sm text-headline-sm text-primary tracking-tight truncate">KaarigarConnect</span><span class="hidden sm:inline-block text-on-surface-variant font-label-sm text-label-sm">•</span><span class="hidden sm:inline-block font-label-md text-label-md text-on-surface truncate">Home</span></div><div class="flex items-center gap-0.5 text-primary-container font-label-sm text-label-sm"><span class="material-symbols-outlined text-[14px] text-primary-container">location_on</span><span class="truncate font-medium text-on-surface-variant">Hyderabad, Sindh</span></div></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Notifications" class="relative w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center justify-center p-0.5 rounded-full hover:ring-2 hover:ring-primary/20 transition-all"><img alt="Profile" class="w-8 h-8 rounded-full object-cover shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1UpP7rWjhkvj-5c4I8mLZpqdnqn5yYPBTfmcPCG3g_gdRXKxF25rvNVCt_FZ9fV5XcppPk2vDhB7_-66Ffbl8eE0NIztK8tgE8yznDIrkbMVX5gqUe1vYR5pIn-EhuGWc86tal26INMEMYe3xa_42yjIFGNlDeVHoGPmF4W49DJ3DWkfHZp5HP81NVHfq7ey1L-MztH15Pyh6APV5ZlHbfzm2HUtw20UrJgDe6AaBK5Hgl5r-1GDGBHZEgN"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full gap-space-lg pb-space-2xl">
+<!-- Top Greeting & Context Ribbon -->
+<section class="flex flex-col px-gutter-mobile pt-space-xs gap-space-sm">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Certified Guild Network</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface truncate">
+          Good morning, Ahmed
+        </h1>
+</div>
+<a aria-label="Emergency 24/7 Hotline" class="flex items-center gap-1 px-space-sm py-1.5 rounded-full bg-error-container text-on-error-container font-label-md text-label-md shadow-sm shrink-0 active:scale-95 transition-transform" href="tel:0222784910">
+<span class="material-symbols-outlined text-[16px] text-error">bolt</span>
+<span class="font-semibold tracking-tight">022-2784910</span>
+</a>
+</div>
+<div class="flex items-center justify-between gap-space-xs">
+<!-- Sector/Neighborhood Selector -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors max-w-fit" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">pin_drop</span>
+<span class="font-label-md text-label-md truncate">Latifabad Unit 7, Hyderabad</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">keyboard_arrow_down</span>
+</button>
+<!-- Trust Indicator -->
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm shrink-0">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>240+ Kaarigars On-Duty</span>
+</div>
+</div>
+</section>
+<!-- Search & Voice Dispatch Console -->
+<section class="flex flex-col px-gutter-mobile gap-space-xs">
+<div class="relative flex items-center w-full rounded-xl bg-surface-container-lowest shadow-sm">
+<span class="material-symbols-outlined absolute left-3.5 text-[22px] text-primary">search</span>
+<input aria-label="Search local services or artisan skills" class="w-full h-12 pl-11 pr-24 rounded-xl bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest" placeholder="What do you need help with?" type="search"/>
+<div class="absolute right-2 flex items-center gap-1">
+<button aria-label="Urdu or English Voice Search" class="w-9 h-9 rounded-lg bg-surface-container-high text-primary flex items-center justify-center hover:bg-primary-container hover:text-on-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+</div>
+<!-- Rapid Query Chips -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 text-nowrap">
+<span class="font-label-sm text-label-sm text-outline pr-1 flex items-center gap-0.5 shrink-0">
+<span class="material-symbols-outlined text-[13px]">trending_up</span> Often:
+      </span>
+<button class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container hover:text-primary transition-colors shrink-0" type="button">
+        Split AC repair
+      </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container hover:text-primary transition-colors shrink-0" type="button">
+        Submersible motor
+      </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container hover:text-primary transition-colors shrink-0" type="button">
+        UPS battery wiring
+      </button>
+<button class="px-3 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container hover:text-primary transition-colors shrink-0" type="button">
+        Car EFI tuning
+      </button>
+</div>
+</section>
+<!-- Service Categories Horizontal Flow -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-gutter-mobile">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Browse by Specialty</h2>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All (18)</a>
+</div>
+<div class="flex gap-space-xs overflow-x-auto no-scrollbar px-gutter-mobile py-1">
+<!-- Item: AC -->
+<a class="group flex flex-col items-center justify-center min-w-[96px] p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all shrink-0" href="#">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[26px]">mode_fan</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center font-semibold line-clamp-1">AC &amp; Cooling</span>
+<span class="font-label-sm text-label-sm text-outline">42 active</span>
+</a>
+<!-- Item: Electrician -->
+<a class="group flex flex-col items-center justify-center min-w-[96px] p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all shrink-0" href="#">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[26px]">electric_bolt</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center font-semibold line-clamp-1">Electrician</span>
+<span class="font-label-sm text-label-sm text-outline">58 active</span>
+</a>
+<!-- Item: Plumber -->
+<a class="group flex flex-col items-center justify-center min-w-[96px] p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all shrink-0" href="#">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[26px]">water_drop</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center font-semibold line-clamp-1">Plumber</span>
+<span class="font-label-sm text-label-sm text-outline">36 active</span>
+</a>
+<!-- Item: Car & Bike -->
+<a class="group flex flex-col items-center justify-center min-w-[96px] p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all shrink-0" href="#">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[26px]">directions_car</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center font-semibold line-clamp-1">Car &amp; Bike</span>
+<span class="font-label-sm text-label-sm text-outline">29 active</span>
+</a>
+<!-- Item: Appliances -->
+<a class="group flex flex-col items-center justify-center min-w-[96px] p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all shrink-0" href="#">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[26px]">kitchen</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center font-semibold line-clamp-1">Appliances</span>
+<span class="font-label-sm text-label-sm text-outline">31 active</span>
+</a>
+<!-- Item: Carpenter -->
+<a class="group flex flex-col items-center justify-center min-w-[96px] p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all shrink-0" href="#">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[26px]">carpenter</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center font-semibold line-clamp-1">Carpenter</span>
+<span class="font-label-sm text-label-sm text-outline">24 active</span>
+</a>
+<!-- Item: Solar & Inverter -->
+<a class="group flex flex-col items-center justify-center min-w-[96px] p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all shrink-0" href="#">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[26px]">solar_power</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center font-semibold line-clamp-1">Solar &amp; UPS</span>
+<span class="font-label-sm text-label-sm text-outline">22 active</span>
+</a>
+</div>
+</section>
+<!-- Restrained Conversational AI Triage Banner -->
+<section class="px-gutter-mobile">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm p-space-md flex flex-col gap-space-sm">
+<div class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-primary-fixed/40 blur-2xl pointer-events-none"></div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-primary font-bold tracking-wide uppercase">Kaarigar AI Diagnostic</span>
+<span class="font-label-sm text-label-sm text-outline">Urdu or English Voice &amp; Text Triage</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Not sure what service you need? Describe the problem in your words and Kaarigar AI will diagnose the part, estimate repair time, and calculate Sindh Guild fair pricing.
+      </p>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">record_voice_over</span>
+<span>“AC thanda nahi kar raha...”</span>
+</div>
+<button class="flex items-center gap-1 px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm active:scale-95" type="button">
+<span>Ask Kaarigar AI</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Verified Professionals Near You -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-gutter-mobile">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Verified Kaarigars Near Latifabad</h2>
+<span class="font-label-sm text-label-sm text-outline">Background verified via NADRA CNIC &amp; Sindhi Guild</span>
+</div>
+<a class="font-label-md text-label-md text-primary shrink-0 hover:underline" href="#">Explore</a>
+</div>
+<!-- Horizontal artisan cards -->
+<div class="flex gap-space-md overflow-x-auto no-scrollbar px-gutter-mobile py-1">
+<!-- Card 1: Imran Ali -->
+<div class="min-w-[285px] rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col justify-between shrink-0">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-xl object-cover" data-alt="Close up warm documentary-style portrait of Imran Ali, a middle-aged skilled Pakistani technician wearing clean work attire, holding a digital multimeter with a confident and kind expression, natural Hyderabad daylight workshop setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjhIxL7ku16l3kTQdEiokusJEzCiIltVj8VJprLr82OsLtUhs10v0mhrRf0eRPVt7CE0yOD07R4rwSI7apSE1xzAfSqxC7LEf0f8z41JFIAPg92cqU3ngFMc6wgSzQKQDz_aHQMzt36uFEDL0K_uA_fjUazDFZX8ihPy5rX-e5rzfaLvZb9I80aYZ3XaTpKNT-PdkGUmBQVyPZJ-_0Uf7W3g9UkIkijCr16nq4R2qhAEXIgGoLAcs3CA"/>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Imran Ali</h3>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">Today</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Master AC &amp; Refrigerator</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">4.9</span>
+<span class="font-label-sm text-label-sm text-outline">(128 reviews)</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary">distance</span> 1.8 km • Latifabad 6
+            </span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant">
+              Inverter Board Specialist
+            </span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 mt-2 border-t-0 bg-transparent">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Visit &amp; Triage</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 1,500</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm" type="button">
+            Book Now
+          </button>
+</div>
+</div>
+<!-- Card 2: Mohammad Rashid -->
+<div class="min-w-[285px] rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col justify-between shrink-0">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-xl object-cover" data-alt="Professional portrait of Mohammad Rashid, an experienced Pakistani electrician in traditional Kurta with a modern utility tool belt, sunny outdoors rooftop with solar panels visible in background, Hyderabad Sindh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeQmajvE-pchYCPBv_JKWNiSXnfMVjdcQnvG3QU35WGvVXIfxBL_7P4BvHlOeK07DNGf_YdmCltyXBsZi_8sQptuhKgdPPkYzjiP9C1Awd3AZ2AJ16tqvUMm6m7347XJnzZebDIlepSR43FiHWaPz-o6D9VzwoeuZIx7ul80nRKNJIsG3xayfdItN-jA7nkImMLjHK64tdaDVVoznYV457mAtETYuaOR8M69b7XrGqX5-yENQVFjdU7A"/>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Mohammad Rashid</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">1 hr</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Solar &amp; UPS Electrician</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">4.95</span>
+<span class="font-label-sm text-label-sm text-outline">(84 reviews)</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary">distance</span> 2.1 km • Qasimabad
+            </span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant">
+              Hybrid Inverters
+            </span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 mt-2">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Visit &amp; Triage</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 800</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm" type="button">
+            Book Now
+          </button>
+</div>
+</div>
+<!-- Card 3: Babar Hussain -->
+<div class="min-w-[285px] rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col justify-between shrink-0">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start gap-3">
+<div class="relative shrink-0">
+<img class="w-14 h-14 rounded-xl object-cover" data-alt="Portrait photo of Babar Hussain, senior plumbing craftsman in Hyderabad, wearing modest collared shirt, holding professional pipe wrench, clean natural lighting in an authentic residential architectural setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDImU5Lax855ARVSmav2LOOdahCa7ppAWNc6TRubegv7jtLoiURG_o1g5T-6_cy-Ql4oq7DPkawU_Ilc7TBkVCHjVbk__ZDXC1TWlplKVfoBhqZUCqj9Lp9SFLf2C31-P9L2uuXhcjRFFqQksbuvECtCmO5j6t3VxTOwUtUiMZh0aX-Ei4FgpJpijyqF5hzD3tmHW0SmtXcthe6CvDid3jCitBB1Ltsd4MMdKeA6z3VvGFcRmeAml0ShQ"/>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Babar Hussain</h3>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">Today</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">Master Plumber &amp; Pumps</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">5.0</span>
+<span class="font-label-sm text-label-sm text-outline">(62 reviews)</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary">distance</span> 0.9 km • Latifabad 3
+            </span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant">
+              Donkey Pump Rewind
+            </span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 mt-2">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Visit &amp; Triage</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 1,200</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm" type="button">
+            Book Now
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Standardized Packages (Guild Fair Price Guarantee) -->
+<section class="flex flex-col px-gutter-mobile gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+<span class="font-label-sm text-label-sm uppercase font-semibold">Hyderabad Artisan Guild Tariff</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Protected Fixed-Rate Packages</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">No hidden charges</span>
+</div>
+<!-- Package 1 -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex justify-between items-start gap-2">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Seasonal Essential</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Split AC Jet Chemical Master Wash</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-0.5">
+            Full indoor evaporator foam clean, high-pressure outdoor condenser rinse, gas pressure diagnostics, and blower lubrication.
+          </p>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 2,200</span>
+<span class="font-label-sm text-label-sm text-outline line-through">Rs. 2,800</span>
+</div>
+</div>
+<!-- Trust Badges & Guarantee Ribbon -->
+<div class="grid grid-cols-3 gap-1.5 py-2 px-3 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="truncate">100% CNIC</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px] text-secondary">security</span>
+<span class="truncate">15-Day Warranty</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary-container font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">price_check</span>
+<span class="truncate">Fair Price Seal</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline">schedule</span> Takes ~60-75 mins
+        </span>
+<button class="px-5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm" type="button">
+          Select Package
+        </button>
+</div>
+</div>
+<!-- Package 2 -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex justify-between items-start gap-2">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Household Utility</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Water Motor Installation &amp; Leak Proofing</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-0.5">
+            1HP suction or submersible motor electrical connection, check-valve fitting, union joint alignment &amp; vibration dampening.
+          </p>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Rs. 1,600</span>
+<span class="font-label-sm text-label-sm text-outline">Fixed fee</span>
+</div>
+</div>
+<!-- Trust Badges & Guarantee Ribbon -->
+<div class="grid grid-cols-3 gap-1.5 py-2 px-3 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-1 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="truncate">Guild Checked</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px] text-secondary">security</span>
+<span class="truncate">15-Day Warranty</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary-container font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+<span class="truncate">Zero Overcharge</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline">schedule</span> Takes ~45 mins
+        </span>
+<button class="px-5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm" type="button">
+          Select Package
+        </button>
+</div>
+</div>
+</section>
+<!-- Community Trust & Civic Commitment Footer Banner -->
+<section class="px-gutter-mobile">
+<div class="rounded-xl bg-surface-container p-space-md flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">handshake</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-headline-sm text-headline-sm text-on-surface">Dignity of Craftsmanship</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          100% of service payments go directly to local Sindhi technicians with transparent civic fee caps.
+        </p>
+</div>
+</div>
+</section>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="text-primary-container font-semibold"><div class="h-16 px-space-xs grid grid-cols-5 items-center justify-items-center"><a aria-current="page" class="group flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 transition-all text-primary-container font-semibold" data-path="home" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">home</span></div><span class="font-label-sm text-label-sm">Home</span></a><a class="group flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-on-surface-variant hover:text-primary transition-all" data-path="explore-kaarigars" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">explore</span></div><span class="font-label-sm text-label-sm">Explore</span></a><a class="group flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-on-surface-variant hover:text-primary transition-all" data-path="my-requests" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">build</span><span class="absolute -top-1 -right-2 px-1.5 py-0.2 rounded-full bg-primary-container text-on-primary font-label-sm text-[10px] leading-tight">2</span></div><span class="font-label-sm text-label-sm">Requests</span></a><a class="group flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-on-surface-variant hover:text-primary transition-all" data-path="messages" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">chat_bubble</span><span class="absolute -top-0.5 -right-1.5 w-2 h-2 rounded-full bg-error ring-1 ring-surface"></span></div><span class="font-label-sm text-label-sm">Messages</span></a><a class="group flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-on-surface-variant hover:text-primary transition-all" data-path="user-profile" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">person</span></div><span class="font-label-sm text-label-sm">Profile</span></a></div></nav></body></html>

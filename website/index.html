@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KaarigarConnect - Local Services Marketplace | Hyderabad Sindh</title>
+    <meta name="description" content="Connect with NADRA-verified skilled local artisans, electricians, plumbers, and AC repair technicians across Latifabad, Qasimabad, Saddar, and Auto Bhan."/>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0D5C46',
+                        'on-primary': '#FFFFFF',
+                        'primary-container': '#0D5C46',
+                        'on-primary-container': '#8CD2B6',
+                        'secondary': '#0F766E',
+                        'on-secondary': '#FFFFFF',
+                        'tertiary': '#D97706',
+                        'on-tertiary': '#FFFFFF',
+                        'tertiary-container': '#7D4200',
+                        'surface': '#FBFBF9',
+                        'surface-container-lowest': '#FFFFFF',
+                        'surface-container-low': '#EFF4FF',
+                        'surface-container': '#E6EEFF',
+                        'on-surface': '#1F2937',
+                        'on-surface-variant': '#4B5563',
+                        'outline': '#6F7974',
+                        'outline-variant': '#E5E7EB',
+                        'error-container': '#ffdad6',
+                        'on-error-container': '#93000a'
+                    },
+                    fontFamily: {
+                        'headline': ['Plus Jakarta Sans', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Custom Application CSS -->
+    <link rel="stylesheet" href="styles/main.css"/>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased min-h-screen flex flex-col">
+
+    <!-- Header Component -->
+    <header id="app-header" class="fixed top-0 left-0 right-0 z-50 glass-header border-b border-outline-variant/40 shadow-sm"></header>
+
+    <!-- Main Content Container -->
+    <main id="app-main" class="flex-grow pt-20"></main>
+
+    <!-- Footer Component -->
+    <footer class="bg-surface-container-lowest border-t border-outline-variant/40 py-10 mt-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold flex items-center justify-center text-lg">K</div>
+                <div>
+                    <span class="font-headline font-bold text-base text-primary">KaarigarConnect</span>
+                    <p class="text-xs text-outline">Hyderabad District Division, Sindh Pakistan</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-6 text-xs text-on-surface-variant font-medium">
+                <a href="#" class="hover:text-primary transition-colors">Sindh Guild Certification</a>
+                <a href="#" class="hover:text-primary transition-colors">NADRA Verification Standard</a>
+                <a href="#" onclick="KaarigarState.setActiveView('security')" class="hover:text-primary transition-colors">Security Architecture Audit</a>
+                <a href="#" class="hover:text-primary transition-colors">Terms & Safety Guarantee</a>
+            </div>
+            <p class="text-xs text-outline font-mono">© 2026 KaarigarConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Global Search Modal (⌘K) -->
+    <div id="search-modal-backdrop" class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-xs flex items-start justify-center pt-24 hidden px-4">
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-4 shadow-2xl max-w-xl w-full space-y-3">
+            <div class="flex items-center gap-3 border-b border-outline-variant/30 pb-3">
+                <span class="material-symbols-outlined text-primary text-xl">search</span>
+                <input type="text" id="modal-search-input" oninput="KaarigarState.setSearchQuery(this.value)" placeholder="Type to search service or kaarigar..." class="w-full bg-transparent text-sm text-on-surface focus:outline-none font-medium"/>
+                <button onclick="KaarigarApp.toggleSearchModal(false)" class="text-xs font-bold text-outline uppercase">Esc</button>
+            </div>
+            <div class="space-y-1 max-h-60 overflow-y-auto">
+                <p class="text-[10px] font-bold text-outline uppercase px-2">Popular Searches</p>
+                <button onclick="KaarigarState.setCategoryFilter('ac_repair'); KaarigarApp.toggleSearchModal(false);" class="w-full text-left p-2 rounded-lg hover:bg-surface-container-low text-xs font-medium text-on-surface flex items-center justify-between">
+                    <span>❄️ AC Inverter PCB Diagnostics & Gas Refill</span>
+                    <span class="text-outline text-[11px]">Latifabad</span>
+                </button>
+                <button onclick="KaarigarState.setCategoryFilter('electrical'); KaarigarApp.toggleSearchModal(false);" class="w-full text-left p-2 rounded-lg hover:bg-surface-container-low text-xs font-medium text-on-surface flex items-center justify-between">
+                    <span>⚡ Emergency Electrician (UPS & Short Circuit)</span>
+                    <span class="text-outline text-[11px]">Qasimabad</span>
+                </button>
+                <button onclick="KaarigarState.setCategoryFilter('plumbing'); KaarigarApp.toggleSearchModal(false);" class="w-full text-left p-2 rounded-lg hover:bg-surface-container-low text-xs font-medium text-on-surface flex items-center justify-between">
+                    <span>💧 Water Motor Pump Repair & Sanitary</span>
+                    <span class="text-outline text-[11px]">Saddar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal Container -->
+    <div id="booking-modal-backdrop" class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div id="booking-modal-content" class="w-full"></div>
+    </div>
+
+    <!-- Application JavaScript Modules -->
+    <script src="js/state.js"></script>
+    <script src="js/security_engine.js"></script>
+    <script src="js/ai_triage.js"></script>
+    <script src="js/map_engine.js"></script>
+    <script src="js/booking_flow.js"></script>
+    <script src="js/tracking_engine.js"></script>
+    <script src="js/provider_console.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

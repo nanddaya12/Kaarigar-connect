@@ -1,0 +1,669 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-on-surface": "#eaf1ff", "primary": "#004331", "on-surface": "#121c2a", "on-primary-container": "#8cd2b6", "on-secondary-container": "#006f67", "surface-bright": "#f8f9ff", "on-tertiary-fixed": "#2f1500", "tertiary-container": "#7d4200", "surface-dim": "#d0dbed", "on-secondary": "#ffffff", "surface-container": "#e6eeff", "surface": "#f8f9ff", "primary-fixed-dim": "#8ed5b9", "surface-container-lowest": "#ffffff", "outline": "#6f7974", "secondary-fixed": "#9cf2e8", "surface-container-low": "#eff4ff", "on-error-container": "#93000a", "on-tertiary-container": "#ffb477", "secondary": "#006a63", "on-tertiary-fixed-variant": "#6e3900", "error-container": "#ffdad6", "surface-tint": "#226a53", "inverse-primary": "#8ed5b9", "on-primary-fixed-variant": "#00513d", "secondary-fixed-dim": "#80d5cb", "surface-variant": "#d9e3f6", "tertiary-fixed": "#ffdcc3", "primary-container": "#0d5c46", "outline-variant": "#bfc9c2", "on-secondary-fixed": "#00201d", "primary-fixed": "#aaf1d4", "secondary-container": "#99efe5", "on-primary": "#ffffff", "on-tertiary": "#ffffff", "on-error": "#ffffff", "on-secondary-fixed-variant": "#00504a", "surface-container-highest": "#d9e3f6", "on-background": "#121c2a", "inverse-surface": "#27313f", "tertiary-fixed-dim": "#ffb77d", "background": "#f8f9ff", "tertiary": "#5c2f00", "surface-container-high": "#dee9fc", "error": "#ba1a1a", "on-surface-variant": "#3f4944", "on-primary-fixed": "#002117" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "container-max": "75rem", "space-md": "1rem", "space-3xl": "4.5rem", "space-xs": "0.5rem", "gutter-desktop": "1.5rem", "space-2xl": "3rem", "space-sm": "0.75rem", "space-lg": "1.5rem", "space-2xs": "0.25rem", "gutter-mobile": "1rem", "space-xl": "2rem" }, "fontFamily": { "body-lg": ["Inter"], "headline-xl": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "body-md": ["Inter"], "label-lg": ["Inter"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-md": ["Inter"], "headline-xl-mobile": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"] }, "fontSize": { "body-lg": ["17px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs min-w-0 flex-shrink-0"><img alt="KaarigarConnect Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1VHqjv-VscEtxIlOXAtC5JHcHuLtOEwZFUJXKTX14DVxHIyJXlec5cTx5kfnACK5nnLyl7_2OXCUllSRLGXNmdZ1CCUu_i_6y7K5Jzn4UzDRZ_1IsRQCacXJziSvQ0h4AokuMy8md5NhRdgzrJnEF2P6kJQmll9TXBbHrctVl6TwoCbiH5GKpaQEzNveAc4HThnxY_XTrETnsJ8APkSxW-UR7VRFPBalysHaP76CMjMtHfxuAMqqRxi8q9T"><div class="flex flex-col min-w-0"><span class="font-headline-sm text-[16px] text-primary-container leading-none tracking-tight font-bold truncate">Kaarigar</span><span class="font-label-sm text-[10px] text-on-surface-variant font-medium leading-none mt-0.5">Hyderabad</span></div></div><div class="flex items-center gap-1.5 min-w-0 flex-shrink"><button aria-label="Select Hyderabad Sector" class="min-h-[36px] px-2 py-1 rounded-full bg-surface-container-high flex items-center gap-1 text-on-surface hover:bg-surface-variant transition-colors min-w-0 flex-shrink truncate" type="button"><span class="material-symbols-outlined text-primary-container text-[16px] flex-shrink-0">location_on</span><span class="font-label-sm text-label-sm truncate font-semibold">Hyderabad</span><span class="material-symbols-outlined text-[14px] text-outline flex-shrink-0">expand_more</span></button><button aria-label="Notifications" class="h-9 w-9 flex items-center justify-center relative rounded-full hover:bg-surface-container text-on-surface-variant transition-colors flex-shrink-0" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center flex-shrink-0"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2-dJuV9_nmLFriK0mm2QZIR_t9aNpw_w6_rKnF4VM5wyJ1dcvQaOvU-PvMnS5cKFRLP-2JA4SG1X0Cl_QNElZH__gVVapr6rm9jVpCrrYxZmccsxcfaHUKvJPWxS9PczIw5fPkHMdv7_E5D-xZ5wLEVkAcyjFYVsFgN8-f4u8x4P5ndRE9zKvm8YvDARPmA7hGkQzAocYwjUOjhCAf2qu2xWhoSiTnsxR-oScYOtlc9P3gWsMfDHm9A"></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Hero & Search Section with Hyderabad Local Flavor -->
+<section class="relative px-gutter-mobile pt-space-md pb-space-lg bg-surface-container-low overflow-hidden">
+<div class="relative z-10 flex flex-col gap-space-xs max-w-lg mx-auto">
+<!-- Civic Trust & Location Pill -->
+<div class="flex items-center gap-space-2xs">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+          Sindh Verified Artisan Guild
+        </span>
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Auto Bhan • Qasimabad
+        </span>
+</div>
+<!-- Headline & Subtitle -->
+<div class="mt-space-2xs">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight font-bold">
+          Find trusted local help in Hyderabad.
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          From a leaking tap to a car that won't start, connect with verified professionals near you.
+        </p>
+</div>
+<!-- Intelligent Search Box Container -->
+<div class="mt-space-sm p-space-xs bg-surface-container-lowest rounded-xl shadow-md flex flex-col gap-space-xs">
+<!-- Search Input Bar -->
+<div class="flex items-center gap-space-xs px-space-xs py-space-2xs bg-surface-container rounded-lg">
+<span class="material-symbols-outlined text-outline text-[22px]">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none min-w-0" id="searchInput" placeholder="What do you need help with? (e.g. AC, plumber...)" type="text">
+<button aria-label="Clear or voice query" class="p-1 rounded-full text-outline hover:text-primary-container" type="button">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+<!-- Urgency & Filter Controls Row -->
+<div class="flex items-center justify-between gap-space-2xs pt-space-2xs">
+<!-- Emergency Switcher -->
+<button class="flex items-center gap-1.5 px-space-xs py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md transition-all active:scale-95" id="urgencyToggleBtn" onclick="toggleUrgency()" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary">bolt</span>
+<span id="urgencyText" class="">2-Hr Emergency</span>
+</button>
+<!-- Quick Sector Filter Dropdown Simulator -->
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary-container">near_me</span>
+<span class="font-semibold text-on-surface">Within 4 km</span>
+</div>
+</div>
+<!-- Fast Tap Filter Chips -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 scrollbar-none">
+<button class="whitespace-nowrap px-space-xs py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm" type="button">All Services</button>
+<button class="whitespace-nowrap px-space-xs py-1 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-variant font-label-sm text-label-sm" type="button">AC Cooling</button>
+<button class="whitespace-nowrap px-space-xs py-1 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-variant font-label-sm text-label-sm" type="button">Plumbing Motor</button>
+<button class="whitespace-nowrap px-space-xs py-1 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-variant font-label-sm text-label-sm" type="button">UPS Inverter</button>
+<button class="whitespace-nowrap px-space-xs py-1 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-variant font-label-sm text-label-sm" type="button">Auto Mechanic</button>
+</div>
+</div>
+<!-- Quick Action Buttons Dual CTA -->
+<div class="grid grid-cols-2 gap-space-xs mt-space-xs">
+<button class="h-12 w-full rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 shadow-sm active:scale-98 transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">build</span>
+<span class="">Find a Service</span>
+</button>
+<button class="h-12 w-full rounded-lg bg-surface-container-high text-primary-container font-label-lg text-label-lg font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-variant active:scale-98 transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="">Join as Kaarigar</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Sindh Trust Strip -->
+<section class="px-gutter-mobile py-space-md bg-surface-container">
+<div class="max-w-lg mx-auto flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+          Why Hyderabad trusts us
+        </h2>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">Verified Guarantee</span>
+</div>
+<!-- Trust Badges Grid -->
+<div class="grid grid-cols-2 gap-space-xs mt-space-2xs">
+<div class="p-space-xs bg-surface-container-lowest rounded-lg shadow-sm flex items-start gap-space-2xs">
+<div class="p-1.5 rounded-md bg-surface-container text-primary-container flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">100% CNIC Verified</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Police character record cleared kaarigars.</p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest rounded-lg shadow-sm flex items-start gap-space-2xs">
+<div class="p-1.5 rounded-md bg-surface-container text-primary-container flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Fixed PKR Pricing</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Standard upfront rates with no hidden fees.</p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest rounded-lg shadow-sm flex items-start gap-space-2xs">
+<div class="p-1.5 rounded-md bg-surface-container text-tertiary-container flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">4.9★ Local Rating</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Rated strictly by verified Hyderabad citizens.</p>
+</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest rounded-lg shadow-sm flex items-start gap-space-2xs">
+<div class="p-1.5 rounded-md bg-surface-container text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Direct Call &amp; Chat</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Call directly via in-app dialer or WhatsApp.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Categories 2x4 Grid -->
+<section class="px-gutter-mobile py-space-lg bg-surface">
+<div class="max-w-lg mx-auto flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            What can we help you with?
+          </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Qualified artisans available across Sindh sectors</p>
+</div>
+<a class="font-label-md text-label-md text-primary-container font-semibold whitespace-nowrap hover:underline flex items-center" href="#">
+          View all 14 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- 1. AC & Cooling -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">mode_fan</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">42 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">AC &amp; Cooling</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Repair, gas refill, inverter installation</p>
+</div>
+</div>
+<!-- 2. Electrician -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">electric_bolt</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">58 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">Electrician</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Wiring, UPS setup, breaker switchboards</p>
+</div>
+</div>
+<!-- 3. Plumber -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">plumbing</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">36 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">Plumber</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Water motor, pipeline leaks, sanitary</p>
+</div>
+</div>
+<!-- 4. Mechanic -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">car_repair</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">29 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">Car &amp; Bike</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Engine tuning, breakdown help, brakes</p>
+</div>
+</div>
+<!-- 5. Appliance Repair -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">kitchen</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">31 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">Appliances</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Washing machine, fridge, microwave</p>
+</div>
+</div>
+<!-- 6. Carpenter -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">carpenter</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">24 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">Carpenter</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Furniture restoration, locks, cabinetry</p>
+</div>
+</div>
+<!-- 7. Painter & Polish -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">format_paint</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">19 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">Painter &amp; Polish</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Wall emulsion, weather sheet, wood lacquer</p>
+</div>
+</div>
+<!-- 8. Solar Tech -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">solar_power</span>
+</div>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">22 verified</span>
+</div>
+<div class="mt-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">Solar Systems</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2">Hybrid inverters, rooftop plate tuning</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Kaarigar AI Conversational Assistant Teaser -->
+<section class="px-gutter-mobile py-space-md bg-surface-container-high">
+<div class="max-w-lg mx-auto p-space-md rounded-2xl bg-surface-container-lowest shadow-md flex flex-col gap-space-sm relative overflow-hidden">
+<!-- Top Assistant Tag & Sparkle -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+<span class="">Sindi-Urdu Triage AI</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Instant Diagnostics</span>
+</div>
+<!-- Conversational Headline -->
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">
+          Not sure what service you need?
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          Simply tell Kaarigar AI what’s malfunctioning in your home or vehicle.
+        </p>
+</div>
+<!-- Dialogue Simulation Bubble -->
+<div class="p-space-xs rounded-xl bg-surface-container flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container">record_voice_over</span>
+<p class="font-body-sm text-body-sm text-on-surface italic">"My AC outdoor fan is spinning, but the room air isn't cold at all."</p>
+</div>
+<div class="p-2 rounded-lg bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm flex items-start gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary flex-shrink-0">check_circle</span>
+<span class=""><strong>Recommendation:</strong> AC Technician with R410A gas detection &amp; coil leak inspection. Estimated fee: Rs. 1,200 – Rs. 2,000.</span>
+</div>
+</div>
+<!-- Interactive Input Prototype -->
+<div class="flex items-center gap-2">
+<input class="flex-1 h-11 px-3 rounded-lg bg-surface-container font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none min-w-0" id="aiDiagnosticInput" placeholder="Type your issue in English or Urdu..." type="text">
+<button class="h-11 px-space-sm rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1 active:scale-95 transition-transform" onclick="runAiDemo()" type="button">
+<span class="">Ask AI</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<p class="hidden font-label-sm text-label-sm text-primary font-medium p-2 rounded bg-surface-container transition-all" id="aiOutputToast">
+        Analyzing your request with local Hyderabad repair database...
+      </p>
+</div>
+</section>
+<!-- Nearby Top-Rated Kaarigars in Hyderabad -->
+<section class="px-gutter-mobile py-space-lg bg-surface">
+<div class="max-w-lg mx-auto flex flex-col gap-space-sm">
+<!-- Section Header with Proximity Pill -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            Top-Rated Kaarigars
+          </h2>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+            Near Latifabad Unit 7
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Available for rapid dispatch within 30-45 mins</p>
+</div>
+<!-- Technician Cards Stack -->
+<div class="flex flex-col gap-space-sm">
+<!-- Kaarigar 1: Imran Ali -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-start gap-space-xs">
+<!-- Profile Thumbnail with Verified Tick -->
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="Close up professional portrait of Pakistani male HVAC technician Imran Ali smiling warmly wearing a clean teal polo shirt against a subtle workshop background with tools, natural daylight, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3nJ0lFJ4G13th50rXgajflU-rk0akMwxTI0HMaW5n6KHywmRW8vq4kN2S2cosgJvg-hIan7ihDiE7QZ1i5CDYcrr7Fx05YI3uNr_0lAwtx499ksxdfZTFi_HYlKOMJ0clLlH-lux_PXPeA_23A2-gMPPIGPB3tyhrHn1q91XsW5nc_G2_92dyrov4fi3MM8-pkunV1CWB_e2kFRuPYwK8BZfrFuGua5Q8rfr2imaF3BFFIT34doOikw">
+<span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[10px] font-bold">
+                ✓
+              </span>
+</div>
+<!-- Core Specs -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Imran Ali</h3>
+<span class="inline-flex items-center gap-1 text-tertiary-container font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                  4.9 <span class="text-outline font-normal text-label-sm">(128)</span>
+</span>
+</div>
+<p class="font-label-md text-label-md text-primary-container font-medium">Master AC &amp; Refrigerator Tech</p>
+<div class="flex items-center gap-2 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="">8 yrs exp</span>
+<span class="">•</span>
+<span class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">distance</span> 1.8 km
+                </span>
+<span class="">•</span>
+<span class="text-primary font-semibold">Available Today</span>
+</div>
+</div>
+</div>
+<!-- Specialty Badges & Rates -->
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Inverter PCB</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Gas Leak Test</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Latifabad &amp; Saddar</span>
+</div>
+<!-- Bottom Price & CTAs -->
+<div class="flex items-center justify-between pt-space-xs mt-1">
+<div>
+<span class="font-label-sm text-label-sm text-outline block leading-none">Starting from</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Rs. 1,500</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-10 px-3 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant" type="button">
+                Profile
+              </button>
+<button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span class="">Book Now</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Kaarigar 2: Mohammad Rashid -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-start gap-space-xs">
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="Portrait of experienced Pakistani electrician Mohammad Rashid in his forties with neatly trimmed beard, holding an insulated electrical testing multimeter, confident expression, soft workshop ambient lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHAGKdceEE9jO_6T2hVEh1OnUdzoRxLm86rzdvkrwpO0OP3_QIOyIAa_IZDlYvee26ExmEAp6asLnf8L9q5PnOCnjUbQYEvWkPu0WRyyyWCNHDNbM6EAn3x57PwqExZVlFcT5LMq76fEx1z1nGfTOWjkbz3SUu4X40UVMV78jNl2Oqfg1kpBeAolamY5uuLAoI7XCpEvS9gaRQkQnp1alX79yyXyFeCuZMSdVv_EvXr_L6qIdaITAFrg">
+<span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[10px] font-bold">
+                ✓
+              </span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Mohammad Rashid</h3>
+<span class="inline-flex items-center gap-1 text-tertiary-container font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                  4.95 <span class="text-outline font-normal text-label-sm">(214)</span>
+</span>
+</div>
+<p class="font-label-md text-label-md text-primary-container font-medium">Senior Electrician &amp; UPS Specialist</p>
+<div class="flex items-center gap-2 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="">12 yrs exp</span>
+<span class="">•</span>
+<span class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">distance</span> 2.4 km (Qasimabad)
+                </span>
+<span class="">•</span>
+<span class="text-secondary font-semibold">Within 1 hr</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">UPS Inverter Bypass</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Short Circuit Tripping</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Three Phase Panel</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-1">
+<div>
+<span class="font-label-sm text-label-sm text-outline block leading-none">Standard Visit</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Rs. 800</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-10 px-3 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant" type="button">
+                Profile
+              </button>
+<button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span class="">Book Now</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Kaarigar 3: Tariq Mehmood -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-start gap-space-xs">
+<div class="relative flex-shrink-0">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="Authentic candid portrait of friendly automotive mechanic Tariq Mehmood standing by a garage vehicle bay in Hyderabad, wearing durable work uniform, holding diagnostic scanner tool with proud professional demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQGp6tpKBRE0MbJWuGHNChpE9Utw0SMQTpIfWaoU2jZBf6EMSCWJyIq6Kj1NjNBtL7WbN698H7TDL5MX4znSWXuRM3_AMa7IUOLXWqlOXGIoxm5XZoXulzGd-payYCi2jcC4fhCmt3fOy8H5ReMdL_njHDzzEyyQhITEjo4fwFI7WaGf2pNiwB8GQ7ueneKU9vGXVZY81qumAx89r0AbWeUanPiyXfz-D8jVZ4qf7l4he0wfyjdBCndw">
+<span class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[10px] font-bold">
+                ✓
+              </span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Tariq Mehmood</h3>
+<span class="inline-flex items-center gap-1 text-tertiary-container font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                  4.8 <span class="text-outline font-normal text-label-sm">(89)</span>
+</span>
+</div>
+<p class="font-label-md text-label-md text-primary-container font-medium">Automotive &amp; Bike Mechanic</p>
+<div class="flex items-center gap-2 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="">9 yrs exp</span>
+<span class="">•</span>
+<span class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">distance</span> 3.1 km (Auto Bhan)
+                </span>
+<span class="">•</span>
+<span class="text-primary font-semibold">On Call</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Emergency Jumpstart</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">EFI Tuning</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Brake Overhaul</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs mt-1">
+<div>
+<span class="font-label-sm text-label-sm text-outline block leading-none">Diagnostic Visit</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Rs. 1,200</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-10 px-3 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-variant" type="button">
+                Profile
+              </button>
+<button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span class="">Book Now</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Simple 4-Step Flow -->
+<section class="px-gutter-mobile py-space-lg bg-surface-container-low">
+<div class="max-w-lg mx-auto flex flex-col gap-space-sm">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+          How KaarigarConnect Works
+        </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Simple, dignified service booking in 4 easy steps</p>
+</div>
+<div class="grid grid-cols-1 gap-space-xs mt-space-2xs">
+<!-- Step 1 -->
+<div class="flex items-start gap-space-xs p-space-xs rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm flex items-center justify-center font-bold flex-shrink-0">
+            1
+          </div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Tell us what you need</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Select a category or use our Sindhi/Urdu AI assistant to describe your breakdown.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-start gap-space-xs p-space-xs rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm flex items-center justify-center font-bold flex-shrink-0">
+            2
+          </div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Discover trusted professionals</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Browse government CNIC-verified kaarigars filtered by your exact Hyderabad neighborhood.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex items-start gap-space-xs p-space-xs rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm flex items-center justify-center font-bold flex-shrink-0">
+            3
+          </div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Choose the right provider</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Compare transparent standard PKR fee structures, real citizen reviews, and arrival times.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex items-start gap-space-xs p-space-xs rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-sm text-headline-sm flex items-center justify-center font-bold flex-shrink-0">
+            4
+          </div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold">Get it done with peace of mind</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Direct phone coordination with KaarigarConnect guild satisfaction warranty on all repairs.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Real Customer Testimonials from Hyderabad -->
+<section class="px-gutter-mobile py-space-lg bg-surface">
+<div class="max-w-lg mx-auto flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            Hyderabad Community Reviews
+          </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real experiences from homeowners across the city</p>
+</div>
+</div>
+<!-- Testimonial Horizontal Scroller -->
+<div class="flex gap-space-xs overflow-x-auto pb-2 scrollbar-none">
+<!-- Review 1 -->
+<div class="min-w-[270px] max-w-[290px] p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-tertiary-container mb-2">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Our main water pump burned out at 9 PM in Citizen Colony. Mohammad Rashid arrived in 25 minutes, fixed the burnt capacitor, and charged exactly the Rs. 800 standard rate. Lifesaver!"
+            </p>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary-container text-label-sm">
+              FA
+            </div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface font-bold">Farhan Ansari</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Citizen Colony, Hyderabad</p>
+</div>
+</div>
+</div>
+<!-- Review 2 -->
+<div class="min-w-[270px] max-w-[290px] p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-tertiary-container mb-2">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Getting reliable AC technicians in Latifabad summer used to mean endless haggling. Imran Ali did gas refill and coil service with proper digital gauges. Honest and professional."
+            </p>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary-container text-label-sm">
+              SZ
+            </div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface font-bold">Sadia Zafar</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Latifabad Unit 6</p>
+</div>
+</div>
+</div>
+<!-- Review 3 -->
+<div class="min-w-[270px] max-w-[290px] p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1 text-tertiary-container mb-2">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+              "Car stalled right on Auto Bhan road due to a bad alternator belt. Booked through KaarigarConnect and had a mechanic with tools within 18 minutes. No gouging."
+            </p>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary-container text-label-sm">
+              BM
+            </div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface font-bold">Bilal Memon</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Defence Phase 1</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dedicated Sindh Civic Trust & Support Footer -->
+<footer class="px-gutter-mobile pt-space-md pb-space-lg bg-surface-container-high">
+<div class="max-w-lg mx-auto flex flex-col gap-space-sm">
+<!-- Helpline Bar -->
+<div class="p-space-xs rounded-xl bg-surface-container-lowest flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[24px]">support_agent</span>
+<div>
+<p class="font-label-sm text-label-sm text-outline">Hyderabad Dedicated Helpline</p>
+<p class="font-headline-sm text-headline-sm text-on-surface font-bold">022-2784910</p>
+</div>
+</div>
+<a class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold" href="tel:0222784910">
+          Call Help
+        </a>
+</div>
+<!-- Consumer Assurance & Language Switcher -->
+<div class="flex items-center justify-between pt-space-2xs text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container">gavel</span>
+<span class="font-label-sm text-label-sm">Sindh Consumer Protection Act 2015 Compliant</span>
+</div>
+<!-- Urdu / English Switcher Prototype -->
+<div class="flex items-center bg-surface-container rounded-lg p-0.5 font-label-sm text-label-sm">
+<button class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-bold" type="button">Eng</button>
+<button class="px-2 py-0.5 rounded text-on-surface-variant font-medium hover:text-on-surface" type="button">اردو</button>
+<button class="px-2 py-0.5 rounded text-on-surface-variant font-medium hover:text-on-surface" type="button">سنڌي</button>
+</div>
+</div>
+<div class="pt-2 text-center">
+<p class="font-label-sm text-label-sm text-outline">
+          © 2025 KaarigarConnect Sindh. Empowering local craftsmanship with dignity and transparency across Hyderabad.
+        </p>
+</div>
+</div>
+</footer>
+<!-- Micro-Interactions Client Script -->
+<script>
+    function toggleUrgency() {
+      const btn = document.getElementById('urgencyToggleBtn');
+      const txt = document.getElementById('urgencyText');
+      const isUrgent = btn.classList.contains('bg-tertiary-container');
+
+      if (isUrgent) {
+        btn.className = "flex items-center gap-1.5 px-space-xs py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md transition-all active:scale-95";
+        txt.textContent = "2-Hr Emergency";
+      } else {
+        btn.className = "flex items-center gap-1.5 px-space-xs py-1.5 rounded-full bg-tertiary-container text-on-tertiary-container font-label-md text-label-md transition-all active:scale-95 shadow-sm";
+        txt.textContent = "⚡ Emergency ON (Within 2 hrs)";
+      }
+    }
+
+    function runAiDemo() {
+      const input = document.getElementById('aiDiagnosticInput');
+      const toast = document.getElementById('aiOutputToast');
+      if (!input.value.trim()) {
+        input.value = "Water leaking under kitchen sink";
+      }
+      toast.classList.remove('hidden');
+      toast.innerHTML = `✨ Diagnostic found: <strong>Plumbing Motor & Valve Replacement</strong>. 3 nearby plumbers ready in Qasimabad!`;
+      setTimeout(() => {
+        toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center min-h-[44px] min-w-[44px] flex-1 transition-all text-primary-container font-semibold" data-path="explore-home" href="#"><span class="material-symbols-outlined text-[24px]">explore</span><span class="font-label-sm text-label-sm mt-0.5">Explore</span></a><a class="flex flex-col items-center justify-center min-h-[44px] min-w-[44px] flex-1 text-on-surface-variant hover:text-primary-container transition-all" data-path="search-map" href="#"><span class="material-symbols-outlined text-[24px]">map</span><span class="font-label-sm text-label-sm mt-0.5">Map</span></a><a class="flex flex-col items-center justify-center min-h-[44px] min-w-[44px] flex-1 text-on-surface-variant hover:text-primary-container transition-all relative" data-path="kaarigar-ai" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">auto_awesome</span><span class="absolute -top-1 -right-2 px-1 py-0.2 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[9px] font-bold leading-none">AI</span></div><span class="font-label-sm text-label-sm mt-0.5">Assistant</span></a><a class="flex flex-col items-center justify-center min-h-[44px] min-w-[44px] flex-1 text-on-surface-variant hover:text-primary-container transition-all relative" data-path="bookings-activity" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[24px]">receipt_long</span><span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary-container"></span></div><span class="font-label-sm text-label-sm mt-0.5">Bookings</span></a><a class="flex flex-col items-center justify-center min-h-[44px] min-w-[44px] flex-1 text-on-surface-variant hover:text-primary-container transition-all" data-path="profile-kaarigar-mode" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav>
+
+</body></html>
