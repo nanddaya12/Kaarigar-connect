@@ -11,8 +11,8 @@ import {
   X, 
   Sparkles,
   Map,
-  Shield,
-  UserCheck
+  Bike,
+  Crosshair
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types/database.types';
@@ -48,7 +48,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'home', label: 'Services', icon: Sparkles },
     { id: 'map', label: 'Map', icon: Map },
     { id: 'ai_triage', label: 'AI Triage', icon: Sparkles, badge: true },
-    { id: 'security', label: 'Standards', icon: Shield },
+    { id: 'tracking', label: 'Live Orders', icon: Bike },
+    { id: 'provider', label: 'Pro Console', icon: Wrench },
   ];
 
   const handleNavClick = (viewId: string) => {
@@ -57,44 +58,44 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.06)] border-b border-slate-200/80">
-      <div className="h-14 max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#004331] text-white shadow-xl border-b border-emerald-800/80 backdrop-blur-md">
+      <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3">
         
         {/* BRAND LOGO & LOCALITY SELECTOR */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2 group focus:outline-none shrink-0"
+            className="flex items-center gap-2.5 group focus:outline-none shrink-0 text-left"
           >
-            <div className="w-8 h-8 rounded-xl bg-[#004331] text-white flex items-center justify-center font-headline font-extrabold text-base shadow-sm group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 text-slate-950 font-headline font-extrabold text-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
               K
             </div>
-            <div className="flex flex-col text-left">
-              <span className="font-headline font-extrabold text-base text-[#004331] leading-none tracking-tight">
-                Kaarigar<span className="text-[#0d5c46]">Connect</span>
+            <div className="flex flex-col">
+              <span className="font-headline font-extrabold text-base text-white leading-none tracking-tight">
+                Kaarigar<span className="text-amber-400">Connect</span>
               </span>
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-0.5">
-                Hyderabad · Sindh
+              <span className="text-[9px] font-bold text-emerald-300 uppercase tracking-widest leading-none mt-0.5 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Hyderabad · Sindh
               </span>
             </div>
           </button>
 
-          <div className="h-4 w-px bg-slate-200 hidden md:block"></div>
+          <div className="h-5 w-px bg-emerald-800 hidden md:block"></div>
 
           {/* Location Dropdown Picker */}
           <div className="relative hidden sm:block">
             <button
               onClick={() => setShowLocalityMenu(!showLocalityMenu)}
-              className="flex items-center gap-1 px-2.5 py-1 bg-slate-100 hover:bg-slate-200/80 text-slate-800 rounded-full text-xs font-semibold transition-colors border border-slate-200"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-900/60 hover:bg-emerald-900 border border-emerald-700/80 text-white rounded-full text-xs font-semibold transition-colors shadow-xs"
             >
-              <MapPin className="w-3.5 h-3.5 text-[#004331] shrink-0" />
-              <span className="truncate max-w-[130px]">{locality}</span>
-              <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="truncate max-w-[130px] font-bold">{locality}</span>
+              <ChevronDown className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
             </button>
 
             {showLocalityMenu && (
-              <div className="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl p-2.5 z-50 border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
-                <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider px-2 py-1">
+              <div className="absolute left-0 top-full mt-2 w-64 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
+                <p className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider px-2 py-1">
                   Hyderabad Coverage Corridors
                 </p>
                 <div className="space-y-0.5 mt-1">
@@ -105,14 +106,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                         setLocality(c.value);
                         setShowLocalityMenu(false);
                       }}
-                      className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center justify-between transition-colors ${
+                      className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition-colors ${
                         c.value === locality
-                          ? 'bg-emerald-50 text-[#004331] font-bold'
-                          : 'text-slate-700 hover:bg-slate-50'
+                          ? 'bg-emerald-800 text-white font-bold'
+                          : 'text-slate-300 hover:bg-slate-800'
                       }`}
                     >
                       <span>{c.name}</span>
-                      <ShieldCheck className="w-3.5 h-3.5 text-[#004331]" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                     </button>
                   ))}
                 </div>
@@ -122,21 +123,21 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* DESKTOP NAV LINKS */}
-        <nav className="hidden md:flex items-center gap-1 shrink-0">
+        <nav className="hidden lg:flex items-center gap-1 bg-emerald-950/60 p-1 rounded-2xl border border-emerald-800/80">
           {navItems.map((item) => {
             const isActive = activeView === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 ${
                   isActive
-                    ? 'bg-[#004331] text-white shadow-xs'
-                    : 'text-slate-700 hover:text-[#004331] hover:bg-slate-100'
+                    ? 'bg-amber-500 text-slate-950 shadow-md scale-102'
+                    : 'text-emerald-100 hover:text-white hover:bg-emerald-900/60'
                 }`}
               >
                 <span>{item.label}</span>
-                {item.badge && <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>}
+                {item.badge && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>}
               </button>
             );
           })}
@@ -144,51 +145,44 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* RIGHT CONTROLS */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Search Trigger Icon */}
+          {/* Quick Search Trigger */}
           <button
             onClick={onOpenSearch}
-            className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 hover:text-[#004331] transition-colors border border-slate-200"
-            title="Quick Search"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-900/60 hover:bg-emerald-900 border border-emerald-700/80 text-emerald-100 hover:text-white text-xs font-semibold transition-colors"
+            title="Search Services (⌘K)"
           >
-            <Search className="w-4 h-4" />
+            <Search className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden xl:inline text-slate-200">Search plumber, electrician...</span>
+            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[9px] bg-slate-900 text-emerald-300 rounded border border-emerald-700 font-mono">⌘K</kbd>
           </button>
 
           {/* Hotline Helpline */}
           <a
             href="tel:0222784910"
-            className="hidden lg:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-[#004331] text-xs font-bold border border-emerald-200/80 hover:bg-emerald-100 transition-colors"
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-extrabold transition-colors shadow-md"
             title="Guild Dispatcher Helpline"
           >
-            <Phone className="w-3.5 h-3.5 text-[#004331]" />
+            <Phone className="w-3.5 h-3.5 text-slate-950" />
             <span>022-2784910</span>
           </a>
 
           {/* Language Switcher */}
           <button
             onClick={() => setLanguage(language === 'EN' ? 'UR' : 'EN')}
-            className="px-2 py-1 bg-slate-100 hover:bg-slate-200/80 text-slate-800 rounded-full text-[11px] font-bold transition-colors border border-slate-200"
+            className="px-2.5 py-1 bg-emerald-900/80 hover:bg-emerald-900 text-emerald-100 rounded-full text-[11px] font-bold transition-colors border border-emerald-700"
             title="Switch Language"
           >
             {language === 'EN' ? 'اردو' : 'EN'}
           </button>
 
-          {/* Join Pro Button */}
-          <button
-            onClick={() => handleNavClick('provider')}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#004331] text-white hover:bg-[#0d5c46] text-xs font-bold transition-colors shadow-xs"
-          >
-            <Wrench className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Join Pro</span>
-          </button>
-
           {/* Notifications Bell */}
           <button
             onClick={onOpenChat}
-            className="relative p-1.5 rounded-full hover:bg-slate-100 text-slate-600 hover:text-[#004331] transition-colors"
-            title="Notifications"
+            className="relative p-2 rounded-full hover:bg-emerald-900 text-emerald-100 transition-colors"
+            title="Messages & Notifications"
           >
             <Bell className="w-4 h-4" />
-            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-500 ring-2 ring-white"></span>
+            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-[#004331]"></span>
           </button>
 
           {/* User Persona Profile Dropdown */}
@@ -198,17 +192,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="relative block group focus:outline-none"
               title="Persona View"
             >
-              <div className="w-7 h-7 rounded-full bg-[#004331] text-white font-bold text-xs flex items-center justify-center ring-2 ring-emerald-600/30 group-hover:ring-[#004331] transition-all">
+              <div className="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center ring-2 ring-amber-300 group-hover:scale-105 transition-all">
                 {role === 'customer' ? '🧑' : role === 'provider' ? '🛠️' : '🛡️'}
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#004331] text-white rounded-full flex items-center justify-center text-[8px] font-bold ring-1 ring-white">
-                ✓
-              </span>
             </button>
 
             {showProfileMenu && (
-              <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-xl shadow-2xl p-2 z-50 border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
-                <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider px-2 py-1">
+              <div className="absolute right-0 top-full mt-2 w-52 bg-slate-900 text-white rounded-2xl shadow-2xl p-2.5 z-50 border border-slate-700 animate-in fade-in zoom-in-95 duration-150">
+                <p className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider px-2 py-1">
                   Select User Persona
                 </p>
                 {(['customer', 'provider', 'admin'] as UserRole[]).map((r) => (
@@ -221,14 +212,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                       else if (r === 'admin') handleNavClick('admin');
                       else handleNavClick('home');
                     }}
-                    className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs font-medium capitalize flex items-center justify-between ${
+                    className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium capitalize flex items-center justify-between ${
                       role === r
-                        ? 'bg-emerald-50 text-[#004331] font-bold'
-                        : 'text-slate-700 hover:bg-slate-50'
+                        ? 'bg-emerald-800 text-white font-bold'
+                        : 'text-slate-300 hover:bg-slate-800'
                     }`}
                   >
                     <span>{r === 'customer' ? '🧑 Customer' : r === 'provider' ? '🛠️ Provider' : '🛡️ Admin Auditor'}</span>
-                    {role === r && <ShieldCheck className="w-3.5 h-3.5 text-[#004331]" />}
+                    {role === r && <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />}
                   </button>
                 ))}
               </div>
@@ -238,7 +229,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile Drawer Hamburger */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+            className="lg:hidden p-2 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white transition-colors"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -247,15 +238,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* MOBILE SLIDE-DOWN DRAWER MENU */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 py-3 space-y-3 shadow-xl animate-in slide-in-from-top duration-200">
-          <div className="bg-emerald-50 p-2.5 rounded-xl border border-emerald-200/80 space-y-1.5">
-            <span className="text-[10px] font-extrabold text-[#004331] uppercase tracking-wider flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5" /> Hyderabad Sector
+        <div className="lg:hidden bg-slate-900 border-b border-slate-800 px-4 py-4 space-y-3 shadow-2xl animate-in slide-in-from-top duration-200">
+          <div className="bg-slate-800 p-3 rounded-2xl border border-slate-700 space-y-2">
+            <span className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-amber-400" /> Active Hyderabad Sector
             </span>
             <select
               value={locality}
               onChange={(e) => setLocality(e.target.value)}
-              className="w-full bg-white text-xs font-bold text-slate-800 p-2 rounded-lg border border-emerald-300 focus:outline-none"
+              className="w-full bg-slate-900 text-xs font-bold text-white p-2.5 rounded-xl border border-slate-700 focus:outline-none"
             >
               {coverageCorridors.map((c) => (
                 <option key={c.value} value={c.value}>{c.name}</option>
@@ -271,10 +262,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`p-2.5 rounded-xl text-xs font-bold text-left flex items-center gap-2 transition-all ${
+                  className={`p-3 rounded-2xl text-xs font-extrabold text-left flex items-center gap-2.5 transition-all ${
                     isActive
-                      ? 'bg-[#004331] text-white shadow-md'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      ? 'bg-amber-500 text-slate-950 shadow-md'
+                      : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -284,16 +275,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </div>
 
-          <div className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-950">
+          <div className="flex items-center justify-between p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-100">
             <div>
-              <p className="text-[9px] font-bold text-amber-800 uppercase">Emergency Hotline</p>
-              <p className="font-extrabold text-xs text-amber-900">022-2784910</p>
+              <p className="text-[10px] font-bold text-amber-400 uppercase">Emergency Hotline</p>
+              <p className="font-extrabold text-sm text-white">022-2784910</p>
             </div>
             <a
               href="tel:0222784910"
-              className="px-2.5 py-1 bg-amber-600 text-white rounded-lg text-xs font-bold shadow-xs"
+              className="px-3.5 py-1.5 bg-amber-500 text-slate-950 rounded-xl text-xs font-extrabold shadow-sm"
             >
-              Call
+              Call Now
             </a>
           </div>
         </div>
