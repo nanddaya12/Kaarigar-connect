@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { ProviderProfile } from '../../types/database.types';
 import { 
   Compass, 
@@ -85,10 +85,6 @@ export const SectorMap: React.FC<SectorMapProps> = ({
     }
   };
 
-  useEffect(() => {
-    handleCaptureLiveLocation();
-  }, []);
-
   // Filter Providers
   const filteredProviders = providers.filter((p) => {
     const matchesSearch =
@@ -172,10 +168,12 @@ export const SectorMap: React.FC<SectorMapProps> = ({
               onClick={handleCaptureLiveLocation}
               disabled={isLocating}
               className="p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors shrink-0"
-              title="Recenter Live Location"
+              title="Use my location"
+              aria-label={isLocating ? locationStatus : 'Use my location'}
             >
               <Crosshair className={`w-4 h-4 ${isLocating ? 'animate-spin text-amber-600' : 'text-[#004331]'}`} />
             </button>
+            <span className="sr-only" aria-live="polite">{locationStatus}</span>
           </div>
         </div>
 

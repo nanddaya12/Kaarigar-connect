@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
@@ -6,23 +6,43 @@ import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { MobileNav } from './components/layout/MobileNav';
-import { HomePage } from './pages/public/HomePage';
-import { KaarigarProfilePage } from './pages/public/KaarigarProfilePage';
-import { HowItWorksPage } from './pages/public/HowItWorksPage';
-import { SettingsPage } from './pages/public/SettingsPage';
-import { SavedProvidersPage } from './pages/public/SavedProvidersPage';
-import { SectorMap } from './components/marketplace/SectorMap';
-import { AiDiagnosticWidget } from './components/ai/AiDiagnosticWidget';
-import { OrderTracker } from './components/dashboard/OrderTracker';
-import { ProviderDashboardPage } from './pages/provider/ProviderDashboardPage';
-import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
-import { BookingModal } from './components/marketplace/BookingModal';
-import { ProviderOnboardingModal } from './components/marketplace/ProviderOnboardingModal';
-import { ChatDrawer } from './features/chat/ChatDrawer';
 import { mockServiceRequests, bookingService } from './services/bookingService';
 import { marketplaceService } from './services/marketplaceService';
 import { ProviderProfile, ServiceRequest } from './types/database.types';
 import { Search, X, ShieldCheck } from 'lucide-react';
+
+const HomePage = lazy(() => import('./pages/public/HomePage').then((module) => ({ default: module.HomePage })));
+const KaarigarProfilePage = lazy(() => import('./pages/public/KaarigarProfilePage').then((module) => ({ default: module.KaarigarProfilePage })));
+const HowItWorksPage = lazy(() => import('./pages/public/HowItWorksPage').then((module) => ({ default: module.HowItWorksPage })));
+const SettingsPage = lazy(() => import('./pages/public/SettingsPage').then((module) => ({ default: module.SettingsPage })));
+const SavedProvidersPage = lazy(() => import('./pages/public/SavedProvidersPage').then((module) => ({ default: module.SavedProvidersPage })));
+const SectorMap = lazy(() => import('./components/marketplace/SectorMap').then((module) => ({ default: module.SectorMap })));
+const AiDiagnosticWidget = lazy(() => import('./components/ai/AiDiagnosticWidget').then((module) => ({ default: module.AiDiagnosticWidget })));
+const OrderTracker = lazy(() => import('./components/dashboard/OrderTracker').then((module) => ({ default: module.OrderTracker })));
+const ProviderDashboardPage = lazy(() => import('./pages/provider/ProviderDashboardPage').then((module) => ({ default: module.ProviderDashboardPage })));
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage').then((module) => ({ default: module.AdminDashboardPage })));
+const BookingModal = lazy(() => import('./components/marketplace/BookingModal').then((module) => ({ default: module.BookingModal })));
+const ProviderOnboardingModal = lazy(() => import('./components/marketplace/ProviderOnboardingModal').then((module) => ({ default: module.ProviderOnboardingModal })));
+const ChatDrawer = lazy(() => import('./features/chat/ChatDrawer').then((module) => ({ default: module.ChatDrawer })));
+
+const PageLoader = () => (
+  <div className="grid min-h-[45vh] place-items-center px-4">
+    <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-bold text-slate-600 shadow-sm">
+      <span className="h-3 w-3 animate-pulse rounded-full bg-emerald-600" />
+      Loading your workspace…
+    </div>
+  </div>
+);
+
+const ScrollToTop: React.FC = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [pathname]);
+
+  return null;
+};
 
 const AppRoutes: React.FC = () => {
   const navigate = useNavigate();
@@ -72,6 +92,8 @@ const AppRoutes: React.FC = () => {
     const routeMap: Record<string, string> = {
       home: '/',
       explore: '/explore',
+      map: '/explore',
+      ai_triage: '/ai-triage',
       how_it_works: '/how-it-works',
       profile: '/profile',
       tracking: '/tracking',
@@ -148,7 +170,8 @@ const AppRoutes: React.FC = () => {
       />
 
       <main className="flex-grow pt-16 sm:pt-20 pb-20 lg:pb-12">
-        <Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
           <Route
             path="/"
             element={
@@ -230,7 +253,8 @@ const AppRoutes: React.FC = () => {
           <Route path="/admin/categories" element={<AdminDashboardPage activeTab="admin_categories" />} />
           <Route path="/admin/reviews" element={<AdminDashboardPage activeTab="admin_reviews" />} />
           <Route path="/admin/reports" element={<AdminDashboardPage activeTab="admin_reports" />} />
-        </Routes>
+          </Routes>
+        </Suspense>
       </main>
 
       <Footer onNavigate={handleNavigate} />
@@ -314,26 +338,32 @@ const AppRoutes: React.FC = () => {
       )}
 
       {/* Booking Modal */}
-      {bookingProvider && (
-        <BookingModal
-          provider={bookingProvider}
-          onClose={() => setBookingProvider(null)}
-          onSuccess={handleBookingSuccess}
-        />
-      )}
+      <Suspense fallback={null}>
+        {bookingProvider && (
+          <BookingModal
+            provider={bookingProvider}
+            onClose={() => setBookingProvider(null)}
+            onSuccess={handleBookingSuccess}
+          />
+        )}
 
-      {/* Provider Onboarding Modal */}
-      <ProviderOnboardingModal
-        isOpen={showOnboardingModal}
-        onClose={() => setShowOnboardingModal(false)}
-        onComplete={handleOnboardingComplete}
-      />
+        {/* Provider Onboarding Modal */}
+        {showOnboardingModal && (
+          <ProviderOnboardingModal
+            isOpen={showOnboardingModal}
+            onClose={() => setShowOnboardingModal(false)}
+            onComplete={handleOnboardingComplete}
+          />
+        )}
 
-      {/* Realtime Messaging Drawer */}
-      <ChatDrawer
-        isOpen={showChatDrawer}
-        onClose={() => setShowChatDrawer(false)}
-      />
+        {/* Realtime Messaging Drawer */}
+        {showChatDrawer && (
+          <ChatDrawer
+            isOpen={showChatDrawer}
+            onClose={() => setShowChatDrawer(false)}
+          />
+        )}
+      </Suspense>
     </div>
   );
 };
@@ -344,6 +374,7 @@ export function App() {
       <AuthProvider>
         <LanguageProvider>
           <ToastProvider>
+            <ScrollToTop />
             <AppRoutes />
           </ToastProvider>
         </LanguageProvider>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ProviderProfile, ServiceRequest } from '../../types/database.types';
 import { 
   X, 
@@ -34,6 +34,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [selectedSkill, setSelectedSkill] = useState<string>(provider.skills[0] || 'General Maintenance');
   const [problemDescription, setProblemDescription] = useState<string>('');
   const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
+  const [customDate, setCustomDate] = useState<string>('');
   const [sectorAddress, setSectorAddress] = useState<string>(`House/Plot, Street 4, ${locality}`);
   const [preferredDate, setPreferredDate] = useState<string>('Today Afternoon');
   const [preferredTime, setPreferredTime] = useState<string>('02:00 PM - 04:00 PM');
@@ -41,6 +42,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [createdRequest, setCreatedRequest] = useState<ServiceRequest | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const photoObjectUrls = useRef<string[]>([]);
+
+  useEffect(() => () => {
+    photoObjectUrls.current.forEach((url) => URL.revokeObjectURL(url));
+  }, []);
 
   const validateCurrentStep = (): boolean => {
     setErrorMessage('');
@@ -56,7 +63,35 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         return false;
       }
     }
+    if (step === 5 && preferredDate === 'Choose a date' && !customDate) {
+      setErrorMessage('Please choose a date for your service request.');
+      return false;
+    }
     return true;
+  };
+
+  const handlePhotosSelected = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    const invalidFile = files.find((file) => !file.type.startsWith('image/') || file.size > 10 * 1024 * 1024);
+
+    if (invalidFile) {
+      setErrorMessage('Please choose image files under 10 MB.');
+      event.target.value = '';
+      return;
+    }
+
+    const remainingSlots = Math.max(0, 3 - uploadedPhotos.length);
+    const newUrls = files.slice(0, remainingSlots).map((file) => URL.createObjectURL(file));
+    photoObjectUrls.current.push(...newUrls);
+    setUploadedPhotos((current) => [...current, ...newUrls]);
+    setErrorMessage('');
+    event.target.value = '';
+  };
+
+  const removePhoto = (photoUrl: string) => {
+    URL.revokeObjectURL(photoUrl);
+    photoObjectUrls.current = photoObjectUrls.current.filter((url) => url !== photoUrl);
+    setUploadedPhotos((current) => current.filter((url) => url !== photoUrl));
   };
 
   const handleNextStep = () => {
@@ -76,22 +111,25 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       const newReq = await bookingService.createRequest({
         customer_id: 'cust-101',
         provider_id: provider.id,
+        kaarigar_name: provider.name,
+        category: provider.category,
         service_title: `${selectedSkill} - ${provider.name}`,
         problem_description: problemDescription || 'Emergency doorstep repair request',
         photos: uploadedPhotos,
         location_address: sectorAddress,
-        preferred_date: preferredDate,
+        preferred_date: preferredDate === 'Choose a date' && customDate ? customDate : preferredDate,
         preferred_time: preferredTime,
         payment_method: paymentMethod,
         budget: provider.starting_price + 300,
-        doorstep_pin: '8942'
+        urgency: preferredDate.includes('Express') ? 'express' : preferredDate.includes('Today') ? 'today' : 'scheduled',
       });
       setCreatedRequest(newReq);
-      setIsSubmitting(false);
       setStep(7); // Success step
     } catch (err) {
-      setIsSubmitting(false);
       console.error(err);
+      setErrorMessage('We could not create your request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -194,11 +232,45 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {step === 3 && (
           <div className="space-y-4">
             <h4 className="font-headline font-extrabold text-sm text-slate-900">Step 3: Upload Optional Photos</h4>
-            <div className="p-6 border-2 border-dashed border-slate-200 hover:border-[#004331] rounded-2xl bg-slate-50 text-center space-y-2 cursor-pointer transition-colors">
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+              multiple
+              className="sr-only"
+              onChange={handlePhotosSelected}
+            />
+            <button
+              type="button"
+              onClick={() => photoInputRef.current?.click()}
+              className="w-full p-6 border-2 border-dashed border-slate-200 hover:border-[#004331] rounded-2xl bg-slate-50 text-center space-y-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[#004331]"
+            >
               <Upload className="w-8 h-8 text-slate-400 mx-auto" />
-              <p className="text-xs font-bold text-slate-700">Click to upload photos of problem area</p>
-              <p className="text-[10px] text-slate-400">JPG, PNG up to 10MB (Optional)</p>
-            </div>
+              <p className="text-xs font-bold text-slate-700">Add photos of the problem area</p>
+              <p className="text-[10px] text-slate-400">Up to 3 JPG, PNG, or WebP images · 10 MB each</p>
+            </button>
+            {uploadedPhotos.length > 0 && (
+              <div className="grid grid-cols-3 gap-2" aria-label={`${uploadedPhotos.length} selected photos`}>
+                {uploadedPhotos.map((photoUrl, index) => (
+                  <div key={photoUrl} className="relative aspect-square overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+                    <img src={photoUrl} alt={`Selected problem photo ${index + 1}`} className="h-full w-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => removePhoto(photoUrl)}
+                      className="absolute right-1 top-1 grid h-6 w-6 place-items-center rounded-full bg-slate-900/80 text-white hover:bg-slate-900"
+                      aria-label={`Remove photo ${index + 1}`}
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            {errorMessage && (
+              <p className="text-xs font-bold text-red-600 flex items-center gap-1">
+                <AlertCircle className="w-3.5 h-3.5" /> {errorMessage}
+              </p>
+            )}
           </div>
         )}
 
@@ -237,7 +309,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div className="space-y-4">
             <h4 className="font-headline font-extrabold text-sm text-slate-900">Step 5: Select Preferred Schedule</h4>
             <div className="grid grid-cols-2 gap-3">
-              {['Today Express (< 30 Mins)', 'Today Afternoon', 'Tomorrow Morning', 'Schedule Date'].map((d) => (
+              {['Today Express (< 30 Mins)', 'Today Afternoon', 'Tomorrow Morning', 'Choose a date'].map((d) => (
                 <button
                   key={d}
                   onClick={() => setPreferredDate(d)}
@@ -251,6 +323,45 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </button>
               ))}
             </div>
+            {preferredDate === 'Choose a date' && (
+              <label className="block space-y-1.5">
+                <span className="text-[11px] font-extrabold text-slate-500 uppercase">Service date</span>
+                <input
+                  type="date"
+                  value={customDate}
+                  min={new Date().toISOString().split('T')[0]}
+                  onChange={(event) => {
+                    setCustomDate(event.target.value);
+                    if (errorMessage) setErrorMessage('');
+                  }}
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#004331]"
+                />
+              </label>
+            )}
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-extrabold text-slate-500 uppercase">Arrival window</span>
+              <div className="grid grid-cols-2 gap-2">
+                {['10:00 AM - 12:00 PM', '02:00 PM - 04:00 PM', '05:00 PM - 07:00 PM', '07:00 PM - 09:00 PM'].map((time) => (
+                  <button
+                    key={time}
+                    type="button"
+                    onClick={() => setPreferredTime(time)}
+                    className={`rounded-xl border p-2.5 text-xs font-bold transition-colors ${
+                      preferredTime === time
+                        ? 'border-[#004331] bg-emerald-50 text-[#004331]'
+                        : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {errorMessage && (
+              <p className="text-xs font-bold text-red-600 flex items-center gap-1">
+                <AlertCircle className="w-3.5 h-3.5" /> {errorMessage}
+              </p>
+            )}
           </div>
         )}
 
@@ -275,6 +386,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <span>Total Estimated Cost:</span>
                 <span>Rs. {provider.starting_price + 300}</span>
               </div>
+              <p className="text-[10px] text-slate-500 leading-relaxed">This is an estimate. Any additional parts will be explained and approved before work begins.</p>
             </div>
 
             <div className="space-y-1.5">
@@ -295,6 +407,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 ))}
               </div>
             </div>
+            {errorMessage && (
+              <p className="text-xs font-bold text-red-600 flex items-center gap-1">
+                <AlertCircle className="w-3.5 h-3.5" /> {errorMessage}
+              </p>
+            )}
           </div>
         )}
 
@@ -313,7 +430,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             {/* Doorstep PIN Card */}
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 max-w-sm mx-auto space-y-1">
               <span className="text-[10px] font-extrabold text-amber-900 uppercase tracking-widest">Doorstep Security PIN</span>
-              <p className="font-mono font-extrabold text-3xl text-amber-950 tracking-widest">#8942</p>
+              <p className="font-mono font-extrabold text-3xl text-amber-950 tracking-widest">#{createdRequest.safety_pin}</p>
               <p className="text-[11px] text-amber-900 font-medium">Verify this PIN before letting technician inside.</p>
             </div>
 

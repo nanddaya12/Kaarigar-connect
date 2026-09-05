@@ -55,7 +55,7 @@ export const SavedProvidersPage: React.FC<SavedProvidersPageProps> = ({
             <KaarigarCard
               key={p.id}
               provider={p}
-              onViewProfile={onSelectKaarigar}
+              onSelectProfile={onSelectKaarigar}
               onBookNow={onBookKaarigar}
             />
           ))}

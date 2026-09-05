@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Search, 
   MapPin, 
@@ -44,6 +44,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>(''); // Default empty so all craftsmen load immediately!
   const [urgency, setUrgency] = useState<string>('express');
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(0);
+  const providerResultsRef = useRef<HTMLElement>(null);
 
   const frequentSearches = [
     { label: 'Split AC Servicing', query: 'AC' },
@@ -164,6 +165,10 @@ export const HomePage: React.FC<HomePageProps> = ({
   useEffect(() => {
     marketplaceService.getProviders(selectedCategory, searchQuery, locality).then(setProviders);
   }, [selectedCategory, searchQuery, locality]);
+
+  const showMatches = () => {
+    providerResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="space-y-12 sm:space-y-16 py-2 sm:py-4">
@@ -301,12 +306,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Search CTA */}
               <div className="md:col-span-2">
                 <Button
-                  onClick={() => onNavigate('map')}
+                  onClick={showMatches}
                   variant="primary"
                   className="w-full h-11 rounded-lg bg-[#004331] hover:bg-[#0d5c46] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all"
                 >
                   <Search className="w-4 h-4" />
-                  <span>Search</span>
+                  <span>View matches</span>
                 </Button>
               </div>
             </div>
@@ -349,7 +354,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* 2. CATEGORY FILTERS & FEATURED CRAFTSMEN */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 space-y-6">
+      <section ref={providerResultsRef} className="max-w-7xl mx-auto px-4 sm:px-6 space-y-6 scroll-mt-24">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-headline font-extrabold text-xl sm:text-2xl text-slate-900">Marketplace Categories</h2>
@@ -371,22 +376,41 @@ export const HomePage: React.FC<HomePageProps> = ({
             <h3 className="font-headline font-extrabold text-lg sm:text-xl text-slate-900">Available Kaarigars in {locality}</h3>
             <p className="text-xs text-slate-500 font-medium">NADRA CNIC Verified · Instant 30-Min Doorstep Dispatch</p>
           </div>
-          <span className="text-xs text-[#004331] font-extrabold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+          <span aria-live="polite" className="text-xs text-[#004331] font-extrabold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
             {providers.length} Craftsmen Active
           </span>
         </div>
 
         {/* Kaarigars Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {providers.map((p) => (
-            <KaarigarCard
-              key={p.id}
-              provider={p}
-              onSelectProfile={onSelectKaarigar}
-              onBookNow={onBookKaarigar}
-            />
-          ))}
-        </div>
+        {providers.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {providers.map((p) => (
+              <KaarigarCard
+                key={p.id}
+                provider={p}
+                onSelectProfile={onSelectKaarigar}
+                onBookNow={onBookKaarigar}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center space-y-3">
+            <Search className="w-8 h-8 text-slate-300 mx-auto" />
+            <div>
+              <h3 className="font-headline font-extrabold text-base text-slate-900">No exact match yet</h3>
+              <p className="mt-1 text-xs text-slate-500">Try a broader service name, or browse every available Kaarigar.</p>
+            </div>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('all');
+              }}
+              className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold transition-colors"
+            >
+              Clear filters
+            </button>
+          </div>
+        )}
       </section>
 
       {/* 3. HOW IT WORKS 4-STEP WORKFLOW */}
@@ -515,6 +539,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div key={idx} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
                 <button
                   onClick={() => setActiveFaqIndex(isOpen ? null : idx)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${idx}`}
                   className="w-full text-left p-4 font-bold text-xs sm:text-sm text-slate-900 flex items-center justify-between hover:bg-slate-50 transition-colors"
                 >
                   <span className="flex items-center gap-2">
@@ -523,7 +549,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isOpen && (
-                  <div className="p-4 pt-0 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
+                  <div id={`faq-answer-${idx}`} className="p-4 pt-0 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
                     {faq.a}
                   </div>
                 )}

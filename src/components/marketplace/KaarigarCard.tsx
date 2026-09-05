@@ -43,7 +43,9 @@ export const KaarigarCard: React.FC<KaarigarCardProps> = ({
                 >
                   {provider.name}
                 </h3>
-                <ShieldCheck className="w-4 h-4 text-[#004331]" title="NADRA CNIC & Sindh Police Verified" />
+                <span title="NADRA CNIC & Sindh Police Verified">
+                  <ShieldCheck className="w-4 h-4 text-[#004331]" />
+                </span>
               </div>
               <p className="text-xs font-bold text-[#004331]">{provider.profession}</p>
             </div>

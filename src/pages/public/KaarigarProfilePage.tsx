@@ -68,7 +68,9 @@ export const KaarigarProfilePage: React.FC<KaarigarProfilePageProps> = ({
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <h1 className="font-headline font-extrabold text-xl sm:text-2xl text-slate-900">{provider.name}</h1>
-                <ShieldCheck className="w-5 h-5 text-[#004331]" title="NADRA CNIC & Sindh Police Verified" />
+                <span title="NADRA CNIC & Sindh Police Verified">
+                  <ShieldCheck className="w-5 h-5 text-[#004331]" />
+                </span>
               </div>
               <p className="font-bold text-sm text-[#004331]">{provider.profession}</p>
 

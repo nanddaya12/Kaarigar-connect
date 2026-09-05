@@ -27,6 +27,7 @@ import {
   Receipt,
   MessageSquare
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -36,6 +37,13 @@ interface NavbarProps {
   onOpenSearch: () => void;
   onOpenChat: () => void;
   onOpenProviderOnboarding: () => void;
+}
+
+interface NavigationItem {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  badge?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -60,14 +68,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   // Role-Specific Desktop Nav Links
-  const customerNavItems = [
+  const customerNavItems: NavigationItem[] = [
     { id: 'home', label: t('home'), icon: Sparkles },
     { id: 'explore', label: t('explore'), icon: Map },
     { id: 'how_it_works', label: t('how_it_works'), icon: HelpCircle },
     { id: 'become_provider', label: t('become_provider'), icon: Wrench },
   ];
 
-  const providerNavItems = [
+  const providerNavItems: NavigationItem[] = [
     { id: 'provider', label: t('dashboard'), icon: Sparkles },
     { id: 'provider_requests', label: t('requests'), icon: Inbox, badge: true },
     { id: 'provider_jobs', label: t('jobs'), icon: Bike },
@@ -76,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'profile', label: t('profile'), icon: User },
   ];
 
-  const adminNavItems = [
+  const adminNavItems: NavigationItem[] = [
     { id: 'admin', label: t('dashboard'), icon: Sparkles },
     { id: 'admin_users', label: t('users'), icon: Users },
     { id: 'admin_providers', label: t('providers'), icon: Wrench },
@@ -87,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'admin_reports', label: t('reports'), icon: AlertTriangle },
   ];
 
-  const currentNavItems = role === 'customer' 
+  const currentNavItems: NavigationItem[] = role === 'customer'
     ? customerNavItems 
     : role === 'provider' 
     ? providerNavItems 

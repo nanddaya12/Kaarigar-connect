@@ -1,6 +1,22 @@
 import { ServiceRequest, RequestStatus } from '../types/database.types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
+export interface CreateRequestInput {
+  customer_id?: string;
+  provider_id?: string;
+  kaarigar_name?: string;
+  service_title?: string;
+  category?: string;
+  problem_description?: string;
+  photos?: string[];
+  location_address?: string;
+  preferred_date?: string;
+  preferred_time?: string;
+  payment_method?: string;
+  budget?: number;
+  urgency?: ServiceRequest['urgency'];
+}
+
 export const mockServiceRequests: ServiceRequest[] = [
   {
     id: 'KC-89214',
@@ -29,21 +45,21 @@ export const mockServiceRequests: ServiceRequest[] = [
 ];
 
 export const bookingService = {
-  createRequest: async (bookingData: any): Promise<ServiceRequest> => {
+  createRequest: async (bookingData: CreateRequestInput): Promise<ServiceRequest> => {
     const pin = Math.floor(1000 + Math.random() * 9000).toString();
-    const serviceName = bookingData.service_title || bookingData.serviceName || 'General Repair';
-    const cost = bookingData.budget || bookingData.estimatedCost || 1500;
-    const address = bookingData.location_address || bookingData.location || 'Latifabad Unit 6';
-    const payment = bookingData.payment_method || bookingData.paymentMethod || 'cod';
+    const serviceName = bookingData.service_title || 'General Repair';
+    const cost = bookingData.budget || 1500;
+    const address = bookingData.location_address || 'Latifabad Unit 6';
+    const payment = bookingData.payment_method || 'cod';
 
     const newReq: ServiceRequest = {
       id: 'KC-' + Math.floor(10000 + Math.random() * 90000),
-      customer_id: 'cust-101',
-      provider_id: bookingData.provider_id || bookingData.providerId || 'kaarigar-1',
-      kaarigar_name: bookingData.kaarigarName || 'Imran Ali',
+      customer_id: bookingData.customer_id || 'cust-101',
+      provider_id: bookingData.provider_id || 'kaarigar-1',
+      kaarigar_name: bookingData.kaarigar_name || 'Provider assigned',
       service_name: serviceName,
       category: bookingData.category || 'electrical',
-      description: bookingData.problem_description || bookingData.description || 'Doorstep maintenance',
+      description: bookingData.problem_description || 'Doorstep maintenance',
       customer_name: 'Shahid Mehmood',
       customer_address: address,
       customer_phone: '0301-5544332',
@@ -52,7 +68,8 @@ export const bookingService = {
       eta_minutes: 18,
       safety_pin: pin,
       estimated_cost: cost,
-      payment_method: payment,
+      payment_method: payment === 'cod' ? 'Cash on Service' : payment,
+      uploaded_photo: bookingData.photos?.[0],
       created_at: new Date().toISOString(),
       logs: [
         { time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), note: 'Order created & verified' },

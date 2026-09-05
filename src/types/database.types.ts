@@ -34,6 +34,10 @@ export interface ProviderProfile {
   experience_years: number;
   verification_status: VerificationStatus;
   availability_status: AvailabilityStatus;
+  is_available: boolean;
+  verified: boolean;
+  locality: string;
+  distance_km?: string;
   service_area: string;
   latitude: number;
   longitude: number;
